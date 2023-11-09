@@ -21,4 +21,4 @@ This project is the companion sample for the [ZenStack: The Complete Guide](the-
 
 You can access a deployed version of the app at [https://zenstack-todo.vercel.app/](https://zenstack-todo.vercel.app/).
 
-[![Todo App Splash](https://github.com/zenstackhq/the-complete-guide-sample/assets/104139426/1af19d92-b402-4930-a4ee-50aabfd9a736)](https://zenstack-todo.vercel.app/)
+[<img src="https://github.com/zenstackhq/the-complete-guide-sample/assets/104139426/1af19d92-b402-4930-a4ee-50aabfd9a736">](https://zenstack-todo.vercel.app/)
