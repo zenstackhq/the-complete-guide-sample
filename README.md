@@ -20,6 +20,9 @@ This project is the companion sample for the [ZenStack: The Complete Guide](the-
 ### Deployed App
 
 You can access a deployed version of the app at [https://zenstack-todo.vercel.app/](https://zenstack-todo.vercel.app/).
+
+<a href="https://zenstack-todo.vercel.app/" target="_blank">
 <picture>
 <img src="https://github.com/zenstackhq/the-complete-guide-sample/assets/104139426/1af19d92-b402-4930-a4ee-50aabfd9a736">
 </picture>
+</a>
