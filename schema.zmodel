@@ -1,0 +1,124 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator js {
+  provider = "prisma-client-js"
+}
+
+// where users can collaborate on todo lists and items
+model Space {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  slug String @unique @regex('^[0-9a-zA-Z]{4,16}$')
+  members SpaceUser[]
+  lists List[]
+
+  // require login
+  @@deny('all', auth() == null)
+
+  // everyone can create a space
+  @@allow('create', true)
+
+  // any user in the space can read the space
+  @@allow('read', members?[user == auth()])
+
+  // space admin can update and delete
+  @@allow('update,delete', members?[user == auth() && role == 'ADMIN'])
+}
+
+// a join table for many-to-many relation between `Space` and `User`
+model SpaceUser {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  role String @default("USER")
+
+  @@unique([userId, spaceId])
+
+  // require login
+  @@deny('all', auth() == null)
+
+  // space admin can create/update/delete
+  @@allow('create,update,delete', space.members?[user == auth() && role == 'ADMIN'])
+
+  // user can read members of spaces that he's a member of
+  @@allow('read', space.members?[user == auth()])
+}
+
+// user
+model User {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email String @unique @email
+  password String? @password @omit
+  name String?
+  spaces SpaceUser[]
+  lists List[]
+  todos Todo[]
+
+  // everyone can sign up
+  @@allow('create', true)
+
+  // full access by oneself
+  @@allow('all', auth() == this)
+
+  // can be read by users sharing any space
+  @@allow('read', spaces?[space.members?[user == auth()]])
+}
+
+// todo list
+model List {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId Int
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade) @deny('update', true)
+  ownerId Int
+  title String
+  private Boolean @default(false)
+  todos Todo[]
+
+  // require login
+  @@deny('all', auth() == null)
+
+  // can be read by space members if not private
+  @@allow('read', owner == auth() || (space.members?[user == auth()] && !private))
+
+  // when create, owner must be set to current user, and user must be in the space
+  @@allow('create,update', owner == auth() && space.members?[user == auth()])
+
+  // can be deleted by owner
+  @@allow('delete', owner == auth())
+}
+
+// todo item
+model Todo {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade) @deny('update', true)
+  ownerId Int
+  list List @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId Int
+  title String
+  completedAt DateTime?
+
+  // require login
+  @@deny('all', auth() == null)
+
+  // owner has full access
+  @@allow('all', list.owner == auth())
+
+  // space members have full access if the parent List is not private
+  @@allow('all', list.space.members?[user == auth()] && !list.private)
+}

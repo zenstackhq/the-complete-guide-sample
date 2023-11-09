@@ -1,0 +1,5 @@
+node_modules/
+dist/
+*.env*
+.zenstack_repl_history
+*.db
