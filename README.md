@@ -1,4 +1,4 @@
-# The Companion Sample Project For "ZenStack: The Complete Guide"
+# The Companion Project For "ZenStack: The Complete Guide"
 
 This project is the companion sample for the [ZenStack: The Complete Guide](the-complete-guide) documentation. It demonstrates how to build a full-stack multi-tenant Todo app using ZenStack.
 
@@ -13,9 +13,9 @@ This project is the companion sample for the [ZenStack: The Complete Guide](the-
 ### Branches
 
 -   `main`: the final completed code for the project.
--   `part-1`: the code up to the completion of [Part I](/docs/the-complete-guide/part1/).
--   `part-2`: the code up to the completion of [Part II](/docs/the-complete-guide/part2/).
--   `part-3`: the code up to the completion of [Part III](/docs/the-complete-guide/part3/).
+-   `part1`: the code up to the completion of [Part I](/docs/the-complete-guide/part1/).
+-   `part2`: the code up to the completion of [Part II](/docs/the-complete-guide/part2/).
+-   `part3`: the code up to the completion of [Part III](/docs/the-complete-guide/part3/).
 
 ### Deployed App
 
