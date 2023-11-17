@@ -7,6 +7,12 @@ generator js {
   provider = "prisma-client-js"
 }
 
+plugin markdown {
+  provider = './dist/markdown-plugin'
+  title = 'My Awesome Todo App'
+  description = 'A multi-tenant Todo application built with ZenStack.'
+}
+
 plugin openapi {
   provider = "@zenstackhq/openapi"
   output = "todo-api.json"
