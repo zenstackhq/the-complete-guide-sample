@@ -14,8 +14,8 @@ generator js {
 
 /// @@deny('all', auth() == null)
 /// @@allow('create', true)
-/// @@allow('read', members ? [user == auth()])
-/// @@allow('update,delete', members ? [user == auth() && role == 'ADMIN'])
+/// @@allow('read', members?[user == auth()])
+/// @@allow('update,delete', members?[user == auth() && role == 'ADMIN'])
 model Space {
     id Int @id() @default(autoincrement())
     createdAt DateTime @default(now())
@@ -28,8 +28,8 @@ model Space {
 }
 
 /// @@deny('all', auth() == null)
-/// @@allow('create,update,delete', space.members ? [user == auth() && role == 'ADMIN'])
-/// @@allow('read', space.members ? [user == auth()])
+/// @@allow('create,update,delete', space.members?[user == auth() && role == 'ADMIN'])
+/// @@allow('read', space.members?[user == auth()])
 model SpaceUser {
     id Int @id() @default(autoincrement())
     createdAt DateTime @default(now())
@@ -45,7 +45,7 @@ model SpaceUser {
 
 /// @@allow('create', true)
 /// @@allow('all', auth() == this)
-/// @@allow('read', spaces ? [space.members ? [user == auth()]])
+/// @@allow('read', spaces?[space.members?[user == auth()]])
 model User {
     id Int @id() @default(autoincrement())
     createdAt DateTime @default(now())
@@ -62,8 +62,8 @@ model User {
 }
 
 /// @@deny('all', auth() == null)
-/// @@allow('read', owner == auth() || (space.members ? [user == auth()] && !private))
-/// @@allow('create,update', owner == auth() && space.members ? [user == auth()])
+/// @@allow('read', owner == auth() || (space.members?[user == auth()] && !private))
+/// @@allow('create,update', owner == auth() && space.members?[user == auth()])
 /// @@allow('delete', owner == auth())
 model List {
     id Int @id() @default(autoincrement())
@@ -81,7 +81,7 @@ model List {
 
 /// @@deny('all', auth() == null)
 /// @@allow('all', list.owner == auth())
-/// @@allow('all', list.space.members ? [user == auth()] && !list.private)
+/// @@allow('all', list.space.members?[user == auth()] && !list.private)
 model Todo {
     id Int @id() @default(autoincrement())
     createdAt DateTime @default(now())
