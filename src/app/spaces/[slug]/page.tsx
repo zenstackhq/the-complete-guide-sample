@@ -7,16 +7,10 @@ import { useCreateList, useFindManyList, useFindUniqueSpace } from '~/lib/hooks'
 
 export default function SpaceHome() {
     const { slug } = useParams<{ slug: string }>();
-    console.log('slug', slug);
 
     const { data: session } = useSession();
 
-    const { data: space } = useFindUniqueSpace(
-        {
-            where: { slug },
-        },
-        { enabled: !!session?.user },
-    );
+    const { data: space } = useFindUniqueSpace({ where: { slug } }, { enabled: !!session?.user });
 
     const { data: lists } = useFindManyList(
         {

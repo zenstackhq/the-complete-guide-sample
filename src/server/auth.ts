@@ -1,8 +1,7 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import type { PrismaClient } from '@prisma/client';
 import { compare } from 'bcryptjs';
-import type { GetServerSidePropsContext } from 'next';
-import NextAuth, { getServerSession, type DefaultSession, type NextAuthOptions } from 'next-auth';
+import NextAuth, { type DefaultSession, type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { db } from './db';
 /**
