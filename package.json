@@ -3,6 +3,7 @@
     "license": "MIT",
     "scripts": {
         "generate": "npx zenstack generate",
+        "build": "tsc",
         "up": "npm i -D zenstack@latest && npm i @zenstackhq/runtime@latest"
     },
     "dependencies": {
