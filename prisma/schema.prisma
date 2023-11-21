@@ -17,7 +17,7 @@ generator js {
 /// @@allow('read', members?[user == auth()])
 /// @@allow('update,delete', members?[user == auth() && role == 'ADMIN'])
 model Space {
-    id Int @id() @default(autoincrement())
+    id String @id() @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
     name String
@@ -25,19 +25,21 @@ model Space {
     slug String @unique()
     members SpaceUser[]
     lists List[]
+    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId String
 }
 
 /// @@deny('all', auth() == null)
-/// @@allow('create,update,delete', space.members?[user == auth() && role == 'ADMIN'])
+/// @@allow('all', space.owner == auth() || space.members?[user == auth() && role == 'ADMIN'])
 /// @@allow('read', space.members?[user == auth()])
 model SpaceUser {
-    id Int @id() @default(autoincrement())
+    id String @id() @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
     space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-    spaceId Int
+    spaceId String
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId Int
+    userId String
     role String @default("USER")
 
     @@unique([userId, spaceId])
@@ -47,7 +49,7 @@ model SpaceUser {
 /// @@allow('all', auth() == this)
 /// @@allow('read', spaces?[space.members?[user == auth()]])
 model User {
-    id Int @id() @default(autoincrement())
+    id String @id() @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
     /// @email
@@ -59,6 +61,7 @@ model User {
     spaces SpaceUser[]
     lists List[]
     todos Todo[]
+    ownedSpaces Space[]
 }
 
 /// @@deny('all', auth() == null)
@@ -66,14 +69,14 @@ model User {
 /// @@allow('create,update', owner == auth() && space.members?[user == auth()])
 /// @@allow('delete', owner == auth())
 model List {
-    id Int @id() @default(autoincrement())
+    id String @id() @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
     space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-    spaceId Int
+    spaceId String
     /// @deny('update', true)
     owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    ownerId Int
+    ownerId String
     title String
     private Boolean @default(false)
     todos Todo[]
@@ -83,14 +86,14 @@ model List {
 /// @@allow('all', list.owner == auth())
 /// @@allow('all', list.space.members?[user == auth()] && !list.private)
 model Todo {
-    id Int @id() @default(autoincrement())
+    id String @id() @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
     /// @deny('update', true)
     owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    ownerId Int
+    ownerId String
     list List @relation(fields: [listId], references: [id], onDelete: Cascade)
-    listId Int
+    listId String
     title String
     completedAt DateTime?
 }

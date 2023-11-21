@@ -1,28 +1,28 @@
-# The Companion Project For "ZenStack: The Complete Guide"
+# Create T3 App
 
-This project is the companion sample for the [ZenStack: The Complete Guide](the-complete-guide) documentation. It demonstrates how to build a full-stack multi-tenant Todo app using ZenStack.
+This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-### Requirements
+## What's next? How do I make an app with this?
 
--   Email/password based signin/signup.
--   Space for multi-tenancy management. Users can join multiple spaces, and a space can have many users.
--   Users can be of "USER" or "ADMIN" role in a space. Space admins can manage space members.
--   Users can manage Todo lists and items in spaces they belong to.
--   Public Todo lists are accessible to all space members. Private lists are only accessible to the owner and space admins.
+We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
 
-### Branches
+If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
 
--   `main`: the final completed code for the project.
--   `part1`: the code up to the completion of [Part I](/docs/the-complete-guide/part1/).
--   `part2`: the code up to the completion of [Part II](/docs/the-complete-guide/part2/).
--   `part3`: the code up to the completion of [Part III](/docs/the-complete-guide/part3/).
+- [Next.js](https://nextjs.org)
+- [NextAuth.js](https://next-auth.js.org)
+- [Prisma](https://prisma.io)
+- [Tailwind CSS](https://tailwindcss.com)
+- [tRPC](https://trpc.io)
 
-### Deployed App
+## Learn More
 
-You can access a deployed version of the app at [https://zenstack-todo.vercel.app/](https://zenstack-todo.vercel.app/).
+To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
 
-<a href="https://zenstack-todo.vercel.app/" target="_blank">
-<picture>
-<img src="https://github.com/zenstackhq/the-complete-guide-sample/assets/104139426/1af19d92-b402-4930-a4ee-50aabfd9a736">
-</picture>
-</a>
+- [Documentation](https://create.t3.gg/)
+- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+
+You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+
+## How do I deploy this?
+
+Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
