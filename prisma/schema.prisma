@@ -71,8 +71,8 @@ model List {
     updatedAt DateTime @updatedAt()
     space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
     spaceId Int
-    /// @deny('update', true)
     owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    /// @deny('update', true)
     ownerId Int
     title String
     private Boolean @default(false)
@@ -86,8 +86,8 @@ model Todo {
     id Int @id() @default(autoincrement())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
-    /// @deny('update', true)
     owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    /// @deny('update', true)
     ownerId Int
     list List @relation(fields: [listId], references: [id], onDelete: Cascade)
     listId Int
