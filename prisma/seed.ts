@@ -3,22 +3,23 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+    // clean up
     await prisma.user.deleteMany();
     await prisma.space.deleteMany();
 
     const joey = await prisma.user.create({
         data: {
             email: 'joey@zenstack.dev',
-            name: 'Joey',
-        },
+            name: 'Joey'
+        }
     });
     console.log('User created:', joey);
 
     const rachel = await prisma.user.create({
         data: {
             email: 'rachel@zenstack.dev',
-            name: 'Rachel',
-        },
+            name: 'Rachel'
+        }
     });
     console.log('User created:', rachel);
 
@@ -26,19 +27,20 @@ async function main() {
         data: {
             name: 'Central Perk',
             slug: 'central-perk',
+            owner: { connect: { id: rachel.id } },
             members: {
                 create: [
                     {
                         user: { connect: { id: joey.id } },
-                        role: 'USER',
+                        role: 'USER'
                     },
                     {
                         user: { connect: { id: rachel.id } },
-                        role: 'ADMIN',
-                    },
-                ],
-            },
-        },
+                        role: 'ADMIN'
+                    }
+                ]
+            }
+        }
     });
     console.log('Space created:', centralPerk);
 
@@ -46,15 +48,16 @@ async function main() {
         data: {
             name: "Rachel's Personal Space",
             slug: 'rachel',
+            owner: { connect: { id: rachel.id } },
             members: {
                 create: [
                     {
                         user: { connect: { id: rachel.id } },
-                        role: 'ADMIN',
-                    },
-                ],
-            },
-        },
+                        role: 'ADMIN'
+                    }
+                ]
+            }
+        }
     });
     console.log('Space created:', rachelPersonal);
 }

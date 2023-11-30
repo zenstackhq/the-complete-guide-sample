@@ -5,7 +5,7 @@
 
 datasource db {
     provider = "sqlite"
-    url = "file:./dev.db"
+    url      = "file:./dev.db"
 }
 
 generator js {
@@ -17,28 +17,30 @@ generator js {
 /// @@allow('read', members?[user == auth()])
 /// @@allow('update,delete', members?[user == auth() && role == 'ADMIN'])
 model Space {
-    id Int @id() @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
-    name String
-    /// @regex('^[0-9a-zA-Z]{4,16}$')
-    slug String @unique()
-    members SpaceUser[]
-    lists List[]
+    id        Int         @id() @default(autoincrement())
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt()
+    name      String
+    /// @regex('^[0-9a-zA-Z_-]{4,16}$')
+    slug      String      @unique()
+    owner     User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId   Int
+    members   SpaceUser[]
+    lists     List[]
 }
 
 /// @@deny('all', auth() == null)
-/// @@allow('create,update,delete', space.members?[user == auth() && role == 'ADMIN'])
+/// @@allow('all', space.owner == auth() || space.members?[user == auth() && role == 'ADMIN'])
 /// @@allow('read', space.members?[user == auth()])
 model SpaceUser {
-    id Int @id() @default(autoincrement())
+    id        Int      @id() @default(autoincrement())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
-    space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-    spaceId Int
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId Int
-    role String @default("USER")
+    space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+    spaceId   Int
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    Int
+    role      String   @default("USER")
 
     @@unique([userId, spaceId])
 }
@@ -47,18 +49,19 @@ model SpaceUser {
 /// @@allow('all', auth() == this)
 /// @@allow('read', spaces?[space.members?[user == auth()]])
 model User {
-    id Int @id() @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
+    id          Int         @id() @default(autoincrement())
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt()
     /// @email
-    email String @unique()
+    email       String      @unique()
     /// @password
     /// @omit
-    password String?
-    name String?
-    spaces SpaceUser[]
-    lists List[]
-    todos Todo[]
+    password    String?
+    name        String?
+    spaces      SpaceUser[]
+    lists       List[]
+    todos       Todo[]
+    ownedSpaces Space[]
 }
 
 /// @@deny('all', auth() == null)
@@ -66,31 +69,31 @@ model User {
 /// @@allow('create,update', owner == auth() && space.members?[user == auth()])
 /// @@allow('delete', owner == auth())
 model List {
-    id Int @id() @default(autoincrement())
+    id        Int      @id() @default(autoincrement())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
-    space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-    spaceId Int
-    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+    spaceId   Int
+    owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
     /// @deny('update', true)
-    ownerId Int
-    title String
-    private Boolean @default(false)
-    todos Todo[]
+    ownerId   Int
+    title     String
+    private   Boolean  @default(false)
+    todos     Todo[]
 }
 
 /// @@deny('all', auth() == null)
 /// @@allow('all', list.owner == auth())
 /// @@allow('all', list.space.members?[user == auth()] && !list.private)
 model Todo {
-    id Int @id() @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
-    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    id          Int       @id() @default(autoincrement())
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt()
+    owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
     /// @deny('update', true)
-    ownerId Int
-    list List @relation(fields: [listId], references: [id], onDelete: Cascade)
-    listId Int
-    title String
+    ownerId     Int
+    list        List      @relation(fields: [listId], references: [id], onDelete: Cascade)
+    listId      Int
+    title       String
     completedAt DateTime?
 }
