@@ -13,7 +13,9 @@ model Space {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name String
-  slug String @unique @regex('^[0-9a-zA-Z]{4,16}$')
+  slug String @unique @regex('^[0-9a-zA-Z_\-]{4,16}$')
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId Int
   members SpaceUser[]
   lists List[]
 
@@ -23,7 +25,7 @@ model Space {
   // everyone can create a space
   @@allow('create', true)
 
-  // any user in the space can read the space
+  // users in the space can read the space
   @@allow('read', members?[user == auth()])
 
   // space admin can update and delete
@@ -46,8 +48,8 @@ model SpaceUser {
   // require login
   @@deny('all', auth() == null)
 
-  // space admin can create/update/delete
-  @@allow('create,update,delete', space.members?[user == auth() && role == 'ADMIN'])
+  // space owner and admins have full access
+  @@allow('all', space.owner == auth() || space.members?[user == auth() && role == 'ADMIN'])
 
   // user can read members of spaces that he's a member of
   @@allow('read', space.members?[user == auth()])
@@ -61,9 +63,10 @@ model User {
   email String @unique @email
   password String? @password @omit
   name String?
-  spaces SpaceUser[]
+  spaces SpaceUser[] // user's space membership
   lists List[]
   todos Todo[]
+  ownedSpaces Space[] // spaces owned by the user
 
   // everyone can sign up
   @@allow('create', true)
@@ -82,8 +85,8 @@ model List {
   updatedAt DateTime @updatedAt
   space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
   spaceId Int
-  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade) @deny('update', true)
-  ownerId Int
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId Int @deny('update', true)
   title String
   private Boolean @default(false)
   todos Todo[]
@@ -106,8 +109,8 @@ model Todo {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade) @deny('update', true)
-  ownerId Int
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId Int @deny('update', true)
   list List @relation(fields: [listId], references: [id], onDelete: Cascade)
   listId Int
   title String
