@@ -13,6 +13,14 @@ plugin markdown {
   description = 'A multi-tenant Todo application built with ZenStack.'
 }
 
+plugin openapi {
+  provider = "@zenstackhq/openapi"
+  output = "todo-api.json"
+  title = "My Todo API"
+  version = "1.0.0"
+  flavor = "rpc"
+}
+
 // where users can collaborate on todo lists and items
 model Space {
   id Int @id @default(autoincrement())
