@@ -7,6 +7,13 @@ generator js {
     provider = "prisma-client-js"
 }
 
+plugin hooks {
+    provider = '@zenstackhq/tanstack-query'
+    target = 'react'
+    version = 'v5'
+    output = 'src/lib/hooks'
+}
+
 // where users can collaborate on todo lists and items
 model Space {
     id String @id @default(cuid())
@@ -85,8 +92,8 @@ model List {
     updatedAt DateTime @updatedAt
     space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
     spaceId String
-    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade) @deny('update', true)
-    ownerId String
+    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId String @deny('update', true)
     title String
     private Boolean @default(false)
     todos Todo[]
@@ -109,8 +116,8 @@ model Todo {
     id String @id @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade) @deny('update', true)
-    ownerId String
+    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId String @deny('update', true)
     list List @relation(fields: [listId], references: [id], onDelete: Cascade)
     listId String
     title String

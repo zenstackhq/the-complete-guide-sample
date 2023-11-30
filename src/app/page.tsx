@@ -1,37 +1,83 @@
-import Link from "next/link";
+"use client";
 
-export default function HomePage() {
+import { nanoid } from "nanoid";
+import type { NextPage } from "next";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { useCreateSpace, useFindManySpace } from "~/lib/hooks";
+
+const Home: NextPage = () => {
+  const { data: session } = useSession();
+  const { mutate: createSpace } = useCreateSpace();
+  const { data: spaces } = useFindManySpace({ orderBy: { createdAt: "desc" } });
+
+  function onCreateSpace() {
+    const name = prompt("Enter a name for your space");
+    if (name) {
+      createSpace({
+        data: {
+          name,
+          slug: nanoid(6),
+          owner: { connect: { id: session?.user.id } },
+          // add the creating user as an admin member
+          members: {
+            create: {
+              user: { connect: { id: session?.user.id } },
+              role: "ADMIN",
+            },
+          },
+        },
+      });
+    }
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+    <div className="container mx-auto flex justify-center">
+      {session?.user ? (
+        <div className="mt-8 flex w-full flex-col items-center">
+          <h1 className="text-center text-2xl">
+            Welcome {session.user.email}{" "}
+            <button
+              className="btn btn-ghost btn-xs mt-4"
+              onClick={() => signOut({ callbackUrl: "/signin" })}
+            >
+              Logout
+            </button>
+          </h1>
+
+          <div className="w-full p-8">
+            <h2 className="mb-8 text-xl">
+              Choose a space to start, or{" "}
+              <button
+                className="btn btn-link p-0 text-xl"
+                onClick={onCreateSpace}
+              >
+                create a new one.
+              </button>
+            </h2>
+
+            <ul className="flex gap-4">
+              {spaces?.map((space) => (
+                <Link href={`/spaces/${space.slug}`} key={space.id}>
+                  <li className="flex h-32 w-72 items-center justify-center rounded-lg border text-2xl">
+                    {space.name}
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
-    </main>
+      ) : (
+        <div>
+          Please{" "}
+          <Link href="/signin">
+            <button className="btn btn-link p-0">login</button>
+          </Link>{" "}
+          to get started
+        </div>
+      )}
+    </div>
   );
-}
+};
+
+export default Home;
