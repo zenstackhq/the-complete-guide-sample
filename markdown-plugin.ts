@@ -1,9 +1,13 @@
-import { ZModelCodeGenerator, getLiteral, type PluginOptions } from '@zenstackhq/sdk';
+import {
+    ZModelCodeGenerator,
+    getLiteral,
+    type PluginOptions,
+} from '@zenstackhq/sdk';
 import {
     isDataModel,
     type DataModel,
     type DataModelAttribute,
-    type Model
+    type Model,
 } from '@zenstackhq/sdk/ast';
 
 import fs from 'fs';
