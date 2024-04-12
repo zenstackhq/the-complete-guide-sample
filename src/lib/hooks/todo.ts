@@ -1,18 +1,21 @@
 /* eslint-disable */
 import type { Prisma, Todo } from '@prisma/client';
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/react-query';
-import { RequestHandlerContext, getHooksContext } from '@zenstackhq/tanstack-query/runtime-v5/react';
+import { getHooksContext } from '@zenstackhq/tanstack-query/runtime-v5/react';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime-v5/react';
-import type { PickEnumerable, CheckSelect } from '@zenstackhq/tanstack-query/runtime-v5';
+import type { PickEnumerable, CheckSelect, QueryError } from '@zenstackhq/tanstack-query/runtime-v5';
 import metadata from './__model_meta';
+type DefaultError = QueryError;
+import { useSuspenseModelQuery, useSuspenseInfiniteModelQuery } from '@zenstackhq/tanstack-query/runtime-v5/react';
+import type { UseSuspenseQueryOptions, UseSuspenseInfiniteQueryOptions } from '@tanstack/react-query';
 
 export function useCreateTodo(
-    options?: Omit<UseMutationOptions<Todo | undefined, unknown, Prisma.TodoCreateArgs>, 'mutationFn'>,
+    options?: Omit<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoCreateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    const _mutation = useModelMutation<Prisma.TodoCreateArgs, Todo, true>(
+    const _mutation = useModelMutation<Prisma.TodoCreateArgs, DefaultError, Todo, true>(
         'Todo',
         'POST',
         `${endpoint}/todo/create`,
@@ -25,17 +28,17 @@ export function useCreateTodo(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.TodoCreateArgs>(
+        mutateAsync: async <T extends Prisma.TodoCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoCreateArgs>,
             options?: Omit<
                 UseMutationOptions<
                     CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
-                    unknown,
+                    DefaultError,
                     Prisma.SelectSubset<T, Prisma.TodoCreateArgs>
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Todo, Prisma.TodoGetPayload<T>>
                 | undefined;
@@ -44,56 +47,179 @@ export function useCreateTodo(
     return mutation;
 }
 
-export function useFindManyTodo<T extends Prisma.TodoFindManyArgs>(
-    args?: Prisma.SelectSubset<T, Prisma.TodoFindManyArgs>,
-    options?: Omit<UseQueryOptions<Array<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
+export function useFindManyTodo<
+    TArgs extends Prisma.TodoFindManyArgs,
+    TQueryFnData = Array<Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }>,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>,
+    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Todo', `${endpoint}/todo/findMany`, args, options, fetch, optimisticUpdate);
+    return useModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/findMany`,
+        args,
+        options,
+        fetch,
+        optimisticUpdate,
+    );
 }
 
-export function useInfiniteFindManyTodo<T extends Prisma.TodoFindManyArgs>(
-    args?: Prisma.SelectSubset<T, Prisma.TodoFindManyArgs>,
-    options?: Omit<
-        UseInfiniteQueryOptions<
-            Array<Prisma.TodoGetPayload<T>>,
-            unknown,
-            InfiniteData<Array<Prisma.TodoGetPayload<T>>>
-        >,
-        'queryKey'
-    >,
+export function useInfiniteFindManyTodo<
+    TArgs extends Prisma.TodoFindManyArgs,
+    TQueryFnData = Array<Prisma.TodoGetPayload<TArgs>>,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>,
+    options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey'>,
 ) {
     options = options ?? { initialPageParam: undefined, getNextPageParam: () => null };
     const { endpoint, fetch } = getHooksContext();
-    return useInfiniteModelQuery('Todo', `${endpoint}/todo/findMany`, args, options, fetch);
+    return useInfiniteModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/findMany`,
+        args,
+        options,
+        fetch,
+    );
 }
 
-export function useFindUniqueTodo<T extends Prisma.TodoFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, Prisma.TodoFindUniqueArgs>,
-    options?: Omit<UseQueryOptions<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+export function useSuspenseFindManyTodo<
+    TArgs extends Prisma.TodoFindManyArgs,
+    TQueryFnData = Array<Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }>,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>,
+    options?: Omit<UseSuspenseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Todo', `${endpoint}/todo/findUnique`, args, options, fetch, optimisticUpdate);
+    return useSuspenseModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/findMany`,
+        args,
+        options,
+        fetch,
+        optimisticUpdate,
+    );
 }
 
-export function useFindFirstTodo<T extends Prisma.TodoFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, Prisma.TodoFindFirstArgs>,
-    options?: Omit<UseQueryOptions<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+export function useSuspenseInfiniteFindManyTodo<
+    TArgs extends Prisma.TodoFindManyArgs,
+    TQueryFnData = Array<Prisma.TodoGetPayload<TArgs>>,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>,
+    options?: Omit<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey'>,
+) {
+    options = options ?? { initialPageParam: undefined, getNextPageParam: () => null };
+    const { endpoint, fetch } = getHooksContext();
+    return useSuspenseInfiniteModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/findMany`,
+        args,
+        options,
+        fetch,
+    );
+}
+
+export function useFindUniqueTodo<
+    TArgs extends Prisma.TodoFindUniqueArgs,
+    TQueryFnData = Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean },
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args: Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>,
+    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Todo', `${endpoint}/todo/findFirst`, args, options, fetch, optimisticUpdate);
+    return useModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/findUnique`,
+        args,
+        options,
+        fetch,
+        optimisticUpdate,
+    );
+}
+
+export function useSuspenseFindUniqueTodo<
+    TArgs extends Prisma.TodoFindUniqueArgs,
+    TQueryFnData = Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean },
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args: Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>,
+    options?: Omit<UseSuspenseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    optimisticUpdate: boolean = true,
+) {
+    const { endpoint, fetch } = getHooksContext();
+    return useSuspenseModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/findUnique`,
+        args,
+        options,
+        fetch,
+        optimisticUpdate,
+    );
+}
+
+export function useFindFirstTodo<
+    TArgs extends Prisma.TodoFindFirstArgs,
+    TQueryFnData = Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean },
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>,
+    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    optimisticUpdate: boolean = true,
+) {
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/findFirst`,
+        args,
+        options,
+        fetch,
+        optimisticUpdate,
+    );
+}
+
+export function useSuspenseFindFirstTodo<
+    TArgs extends Prisma.TodoFindFirstArgs,
+    TQueryFnData = Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean },
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>,
+    options?: Omit<UseSuspenseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    optimisticUpdate: boolean = true,
+) {
+    const { endpoint, fetch } = getHooksContext();
+    return useSuspenseModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/findFirst`,
+        args,
+        options,
+        fetch,
+        optimisticUpdate,
+    );
 }
 
 export function useUpdateTodo(
-    options?: Omit<UseMutationOptions<Todo | undefined, unknown, Prisma.TodoUpdateArgs>, 'mutationFn'>,
+    options?: Omit<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoUpdateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    const _mutation = useModelMutation<Prisma.TodoUpdateArgs, Todo, true>(
+    const _mutation = useModelMutation<Prisma.TodoUpdateArgs, DefaultError, Todo, true>(
         'Todo',
         'PUT',
         `${endpoint}/todo/update`,
@@ -106,17 +232,17 @@ export function useUpdateTodo(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.TodoUpdateArgs>(
+        mutateAsync: async <T extends Prisma.TodoUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoUpdateArgs>,
             options?: Omit<
                 UseMutationOptions<
                     CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
-                    unknown,
+                    DefaultError,
                     Prisma.SelectSubset<T, Prisma.TodoUpdateArgs>
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Todo, Prisma.TodoGetPayload<T>>
                 | undefined;
@@ -126,12 +252,12 @@ export function useUpdateTodo(
 }
 
 export function useUpdateManyTodo(
-    options?: Omit<UseMutationOptions<Prisma.BatchPayload, unknown, Prisma.TodoUpdateManyArgs>, 'mutationFn'>,
+    options?: Omit<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoUpdateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    const _mutation = useModelMutation<Prisma.TodoUpdateManyArgs, Prisma.BatchPayload, false>(
+    const _mutation = useModelMutation<Prisma.TodoUpdateManyArgs, DefaultError, Prisma.BatchPayload, false>(
         'Todo',
         'PUT',
         `${endpoint}/todo/updateMany`,
@@ -144,13 +270,17 @@ export function useUpdateManyTodo(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.TodoUpdateManyArgs>(
+        mutateAsync: async <T extends Prisma.TodoUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoUpdateManyArgs>,
             options?: Omit<
-                UseMutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.TodoUpdateManyArgs>>,
+                UseMutationOptions<
+                    Prisma.BatchPayload,
+                    DefaultError,
+                    Prisma.SelectSubset<T, Prisma.TodoUpdateManyArgs>
+                >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     };
@@ -158,12 +288,12 @@ export function useUpdateManyTodo(
 }
 
 export function useUpsertTodo(
-    options?: Omit<UseMutationOptions<Todo | undefined, unknown, Prisma.TodoUpsertArgs>, 'mutationFn'>,
+    options?: Omit<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoUpsertArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    const _mutation = useModelMutation<Prisma.TodoUpsertArgs, Todo, true>(
+    const _mutation = useModelMutation<Prisma.TodoUpsertArgs, DefaultError, Todo, true>(
         'Todo',
         'POST',
         `${endpoint}/todo/upsert`,
@@ -176,17 +306,17 @@ export function useUpsertTodo(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.TodoUpsertArgs>(
+        mutateAsync: async <T extends Prisma.TodoUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoUpsertArgs>,
             options?: Omit<
                 UseMutationOptions<
                     CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
-                    unknown,
+                    DefaultError,
                     Prisma.SelectSubset<T, Prisma.TodoUpsertArgs>
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Todo, Prisma.TodoGetPayload<T>>
                 | undefined;
@@ -196,12 +326,12 @@ export function useUpsertTodo(
 }
 
 export function useDeleteTodo(
-    options?: Omit<UseMutationOptions<Todo | undefined, unknown, Prisma.TodoDeleteArgs>, 'mutationFn'>,
+    options?: Omit<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoDeleteArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    const _mutation = useModelMutation<Prisma.TodoDeleteArgs, Todo, true>(
+    const _mutation = useModelMutation<Prisma.TodoDeleteArgs, DefaultError, Todo, true>(
         'Todo',
         'DELETE',
         `${endpoint}/todo/delete`,
@@ -214,17 +344,17 @@ export function useDeleteTodo(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.TodoDeleteArgs>(
+        mutateAsync: async <T extends Prisma.TodoDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoDeleteArgs>,
             options?: Omit<
                 UseMutationOptions<
                     CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
-                    unknown,
+                    DefaultError,
                     Prisma.SelectSubset<T, Prisma.TodoDeleteArgs>
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Todo, Prisma.TodoGetPayload<T>>
                 | undefined;
@@ -234,12 +364,12 @@ export function useDeleteTodo(
 }
 
 export function useDeleteManyTodo(
-    options?: Omit<UseMutationOptions<Prisma.BatchPayload, unknown, Prisma.TodoDeleteManyArgs>, 'mutationFn'>,
+    options?: Omit<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoDeleteManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    const _mutation = useModelMutation<Prisma.TodoDeleteManyArgs, Prisma.BatchPayload, false>(
+    const _mutation = useModelMutation<Prisma.TodoDeleteManyArgs, DefaultError, Prisma.BatchPayload, false>(
         'Todo',
         'DELETE',
         `${endpoint}/todo/deleteMany`,
@@ -252,112 +382,237 @@ export function useDeleteManyTodo(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.TodoDeleteManyArgs>(
+        mutateAsync: async <T extends Prisma.TodoDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoDeleteManyArgs>,
             options?: Omit<
-                UseMutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.TodoDeleteManyArgs>>,
+                UseMutationOptions<
+                    Prisma.BatchPayload,
+                    DefaultError,
+                    Prisma.SelectSubset<T, Prisma.TodoDeleteManyArgs>
+                >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     };
     return mutation;
 }
 
-export function useAggregateTodo<T extends Prisma.TodoAggregateArgs>(
-    args: Prisma.SelectSubset<T, Prisma.TodoAggregateArgs>,
-    options?: Omit<UseQueryOptions<Prisma.GetTodoAggregateType<T>>, 'queryKey'>,
+export function useAggregateTodo<
+    TArgs extends Prisma.TodoAggregateArgs,
+    TQueryFnData = Prisma.GetTodoAggregateType<TArgs>,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args: Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>,
+    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Todo', `${endpoint}/todo/aggregate`, args, options, fetch);
+    return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/aggregate`, args, options, fetch);
+}
+
+export function useSuspenseAggregateTodo<
+    TArgs extends Prisma.TodoAggregateArgs,
+    TQueryFnData = Prisma.GetTodoAggregateType<TArgs>,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args: Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>,
+    options?: Omit<UseSuspenseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+) {
+    const { endpoint, fetch } = getHooksContext();
+    return useSuspenseModelQuery<TQueryFnData, TData, TError>(
+        'Todo',
+        `${endpoint}/todo/aggregate`,
+        args,
+        options,
+        fetch,
+    );
 }
 
 export function useGroupByTodo<
-    T extends Prisma.TodoGroupByArgs,
-    HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>,
+    TArgs extends Prisma.TodoGroupByArgs,
+    HasSelectOrTake extends Prisma.Or<
+        Prisma.Extends<'skip', Prisma.Keys<TArgs>>,
+        Prisma.Extends<'take', Prisma.Keys<TArgs>>
+    >,
     OrderByArg extends Prisma.True extends HasSelectOrTake
         ? { orderBy: Prisma.TodoGroupByArgs['orderBy'] }
         : { orderBy?: Prisma.TodoGroupByArgs['orderBy'] },
-    OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
-    ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
+    OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<TArgs['orderBy']>>>,
+    ByFields extends Prisma.MaybeTupleToUnion<TArgs['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
-    HavingFields extends Prisma.GetHavingFields<T['having']>,
+    HavingFields extends Prisma.GetHavingFields<TArgs['having']>,
     HavingValid extends Prisma.Has<ByFields, HavingFields>,
-    ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False,
+    ByEmpty extends TArgs['by'] extends never[] ? Prisma.True : Prisma.False,
     InputErrors extends ByEmpty extends Prisma.True
         ? `Error: "by" must not be empty.`
         : HavingValid extends Prisma.False
-        ? {
-              [P in HavingFields]: P extends ByFields
-                  ? never
-                  : P extends string
-                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                  : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
-          }[HavingFields]
-        : 'take' extends Prisma.Keys<T>
-        ? 'orderBy' extends Prisma.Keys<T>
-            ? ByValid extends Prisma.True
+          ? {
+                [P in HavingFields]: P extends ByFields
+                    ? never
+                    : P extends string
+                      ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                      : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
+            }[HavingFields]
+          : 'take' extends Prisma.Keys<TArgs>
+            ? 'orderBy' extends Prisma.Keys<TArgs>
+                ? ByValid extends Prisma.True
+                    ? {}
+                    : {
+                          [P in OrderFields]: P extends ByFields
+                              ? never
+                              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                      }[OrderFields]
+                : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : 'skip' extends Prisma.Keys<TArgs>
+              ? 'orderBy' extends Prisma.Keys<TArgs>
+                  ? ByValid extends Prisma.True
+                      ? {}
+                      : {
+                            [P in OrderFields]: P extends ByFields
+                                ? never
+                                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                        }[OrderFields]
+                  : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends Prisma.True
                 ? {}
                 : {
                       [P in OrderFields]: P extends ByFields
                           ? never
                           : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                  }[OrderFields]
-            : 'Error: If you provide "take", you also need to provide "orderBy"'
-        : 'skip' extends Prisma.Keys<T>
-        ? 'orderBy' extends Prisma.Keys<T>
-            ? ByValid extends Prisma.True
-                ? {}
-                : {
-                      [P in OrderFields]: P extends ByFields
-                          ? never
-                          : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                  }[OrderFields]
-            : 'Error: If you provide "skip", you also need to provide "orderBy"'
-        : ByValid extends Prisma.True
-        ? {}
-        : {
-              [P in OrderFields]: P extends ByFields
-                  ? never
-                  : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-          }[OrderFields],
+                  }[OrderFields],
+    TQueryFnData = {} extends InputErrors
+        ? Array<
+              PickEnumerable<Prisma.TodoGroupByOutputType, TArgs['by']> & {
+                  [P in keyof TArgs & keyof Prisma.TodoGroupByOutputType]: P extends '_count'
+                      ? TArgs[P] extends boolean
+                          ? number
+                          : Prisma.GetScalarType<TArgs[P], Prisma.TodoGroupByOutputType[P]>
+                      : Prisma.GetScalarType<TArgs[P], Prisma.TodoGroupByOutputType[P]>;
+              }
+          >
+        : InputErrors,
+    TData = TQueryFnData,
+    TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<T, Prisma.SubsetIntersection<T, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors>,
-    options?: Omit<
-        UseQueryOptions<
-            {} extends InputErrors
-                ? Array<
-                      PickEnumerable<Prisma.TodoGroupByOutputType, T['by']> & {
-                          [P in keyof T & keyof Prisma.TodoGroupByOutputType]: P extends '_count'
-                              ? T[P] extends boolean
-                                  ? number
-                                  : Prisma.GetScalarType<T[P], Prisma.TodoGroupByOutputType[P]>
-                              : Prisma.GetScalarType<T[P], Prisma.TodoGroupByOutputType[P]>;
-                      }
-                  >
-                : InputErrors
-        >,
-        'queryKey'
+    args: Prisma.SelectSubset<
+        TArgs,
+        Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors
     >,
+    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Todo', `${endpoint}/todo/groupBy`, args, options, fetch);
+    return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/groupBy`, args, options, fetch);
 }
 
-export function useCountTodo<T extends Prisma.TodoCountArgs>(
-    args?: Prisma.SelectSubset<T, Prisma.TodoCountArgs>,
-    options?: Omit<
-        UseQueryOptions<
-            T extends { select: any }
-                ? T['select'] extends true
-                    ? number
-                    : Prisma.GetScalarType<T['select'], Prisma.TodoCountAggregateOutputType>
-                : number
-        >,
-        'queryKey'
+export function useSuspenseGroupByTodo<
+    TArgs extends Prisma.TodoGroupByArgs,
+    HasSelectOrTake extends Prisma.Or<
+        Prisma.Extends<'skip', Prisma.Keys<TArgs>>,
+        Prisma.Extends<'take', Prisma.Keys<TArgs>>
     >,
+    OrderByArg extends Prisma.True extends HasSelectOrTake
+        ? { orderBy: Prisma.TodoGroupByArgs['orderBy'] }
+        : { orderBy?: Prisma.TodoGroupByArgs['orderBy'] },
+    OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<TArgs['orderBy']>>>,
+    ByFields extends Prisma.MaybeTupleToUnion<TArgs['by']>,
+    ByValid extends Prisma.Has<ByFields, OrderFields>,
+    HavingFields extends Prisma.GetHavingFields<TArgs['having']>,
+    HavingValid extends Prisma.Has<ByFields, HavingFields>,
+    ByEmpty extends TArgs['by'] extends never[] ? Prisma.True : Prisma.False,
+    InputErrors extends ByEmpty extends Prisma.True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends Prisma.False
+          ? {
+                [P in HavingFields]: P extends ByFields
+                    ? never
+                    : P extends string
+                      ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                      : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
+            }[HavingFields]
+          : 'take' extends Prisma.Keys<TArgs>
+            ? 'orderBy' extends Prisma.Keys<TArgs>
+                ? ByValid extends Prisma.True
+                    ? {}
+                    : {
+                          [P in OrderFields]: P extends ByFields
+                              ? never
+                              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                      }[OrderFields]
+                : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : 'skip' extends Prisma.Keys<TArgs>
+              ? 'orderBy' extends Prisma.Keys<TArgs>
+                  ? ByValid extends Prisma.True
+                      ? {}
+                      : {
+                            [P in OrderFields]: P extends ByFields
+                                ? never
+                                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                        }[OrderFields]
+                  : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends Prisma.True
+                ? {}
+                : {
+                      [P in OrderFields]: P extends ByFields
+                          ? never
+                          : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    TQueryFnData = {} extends InputErrors
+        ? Array<
+              PickEnumerable<Prisma.TodoGroupByOutputType, TArgs['by']> & {
+                  [P in keyof TArgs & keyof Prisma.TodoGroupByOutputType]: P extends '_count'
+                      ? TArgs[P] extends boolean
+                          ? number
+                          : Prisma.GetScalarType<TArgs[P], Prisma.TodoGroupByOutputType[P]>
+                      : Prisma.GetScalarType<TArgs[P], Prisma.TodoGroupByOutputType[P]>;
+              }
+          >
+        : InputErrors,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args: Prisma.SelectSubset<
+        TArgs,
+        Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors
+    >,
+    options?: Omit<UseSuspenseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Todo', `${endpoint}/todo/count`, args, options, fetch);
+    return useSuspenseModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/groupBy`, args, options, fetch);
+}
+
+export function useCountTodo<
+    TArgs extends Prisma.TodoCountArgs,
+    TQueryFnData = TArgs extends { select: any }
+        ? TArgs['select'] extends true
+            ? number
+            : Prisma.GetScalarType<TArgs['select'], Prisma.TodoCountAggregateOutputType>
+        : number,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args?: Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>,
+    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+) {
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/count`, args, options, fetch);
+}
+
+export function useSuspenseCountTodo<
+    TArgs extends Prisma.TodoCountArgs,
+    TQueryFnData = TArgs extends { select: any }
+        ? TArgs['select'] extends true
+            ? number
+            : Prisma.GetScalarType<TArgs['select'], Prisma.TodoCountAggregateOutputType>
+        : number,
+    TData = TQueryFnData,
+    TError = DefaultError,
+>(
+    args?: Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>,
+    options?: Omit<UseSuspenseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+) {
+    const { endpoint, fetch } = getHooksContext();
+    return useSuspenseModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/count`, args, options, fetch);
 }

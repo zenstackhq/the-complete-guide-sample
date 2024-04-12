@@ -21,7 +21,7 @@ model Space {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
     name String
-    /// @regex('^[0-9a-zA-Z]{4,16}$')
+    /// @regex('^[0-9a-zA-Z_-]{4,16}$')
     slug String @unique()
     members SpaceUser[]
     lists List[]
@@ -74,8 +74,8 @@ model List {
     updatedAt DateTime @updatedAt()
     space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
     spaceId String
-    /// @deny('update', true)
     owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    /// @deny('update', true)
     ownerId String
     title String
     private Boolean @default(false)
@@ -89,8 +89,8 @@ model Todo {
     id String @id() @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
-    /// @deny('update', true)
     owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    /// @deny('update', true)
     ownerId String
     list List @relation(fields: [listId], references: [id], onDelete: Cascade)
     listId String
