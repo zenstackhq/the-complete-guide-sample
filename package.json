@@ -1,21 +1,23 @@
 {
-  "name": "script",
-  "license": "MIT",
-  "scripts": {
-    "dev": "ts-node ./script.ts"
-  },
-  "dependencies": {
-    "@prisma/client": "5.6.0",
-    "@types/node": "20.10.1",
-    "@zenstackhq/runtime": "^1.4.0"
-  },
-  "devDependencies": {
-    "prisma": "5.6.0",
-    "ts-node": "10.9.1",
-    "typescript": "5.3.2",
-    "zenstack": "^1.4.0"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  }
+    "name": "script",
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc",
+        "generate": "zenstack generate",
+        "dev": "ts-node ./script.ts"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.12.1",
+        "@types/node": "20.10.1",
+        "@zenstackhq/runtime": "^1.12.3"
+    },
+    "devDependencies": {
+        "prisma": "^5.12.1",
+        "ts-node": "10.9.1",
+        "typescript": "5.3.2",
+        "zenstack": "^1.12.3"
+    },
+    "prisma": {
+        "seed": "ts-node prisma/seed.ts"
+    }
 }
