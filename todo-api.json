@@ -207,10 +207,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "spaces": {
             "type": "array",
@@ -325,8 +339,15 @@
             "type": "string"
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           }
         },
         "required": [
@@ -1133,6 +1154,9 @@
               },
               {
                 "type": "string"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -1143,6 +1167,9 @@
               },
               {
                 "type": "string"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -1279,6 +1306,9 @@
               },
               {
                 "type": "string"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -1289,6 +1319,9 @@
               },
               {
                 "type": "string"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -1390,6 +1423,9 @@
               },
               {
                 "type": "string"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -1400,6 +1436,9 @@
               },
               {
                 "type": "string"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -1911,6 +1950,9 @@
               {
                 "type": "string",
                 "format": "date-time"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -2073,6 +2115,9 @@
               {
                 "type": "string",
                 "format": "date-time"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -2203,6 +2248,9 @@
               {
                 "type": "string",
                 "format": "date-time"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -2465,10 +2513,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "spaces": {
             "$ref": "#/components/schemas/SpaceUserCreateNestedManyWithoutUserInput"
@@ -2529,6 +2591,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -2539,6 +2604,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -2598,6 +2666,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -2608,6 +2679,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -2764,8 +2838,15 @@
             "type": "string"
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "owner": {
             "$ref": "#/components/schemas/UserCreateNestedOneWithoutTodosInput"
@@ -2823,6 +2904,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -2877,6 +2961,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -3286,19 +3373,40 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "string"
@@ -3328,6 +3436,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedStringNullableFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -3395,19 +3506,40 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "string"
@@ -3437,6 +3569,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedStringNullableWithAggregatesFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -3500,22 +3635,43 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "string",
@@ -3541,6 +3697,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedDateTimeNullableFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -3561,22 +3720,43 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "string",
@@ -3602,6 +3782,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedDateTimeNullableWithAggregatesFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -5043,7 +5226,14 @@
         "type": "object",
         "properties": {
           "set": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -6763,8 +6953,15 @@
         "type": "object",
         "properties": {
           "set": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           }
         }
       },
@@ -7207,19 +7404,40 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "string"
@@ -7249,6 +7467,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedStringNullableFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -7258,19 +7479,40 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "string"
@@ -7300,6 +7542,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedStringNullableWithAggregatesFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -7318,19 +7563,40 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "integer"
@@ -7351,6 +7617,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedIntNullableFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -7405,22 +7674,43 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "string",
@@ -7446,6 +7736,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedDateTimeNullableFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -7455,22 +7748,43 @@
         "type": "object",
         "properties": {
           "equals": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "in": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            ]
           },
           "notIn": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            ]
           },
           "lt": {
             "type": "string",
@@ -7496,6 +7810,9 @@
               },
               {
                 "$ref": "#/components/schemas/NestedDateTimeNullableWithAggregatesFilter"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -7525,10 +7842,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "spaces": {
             "$ref": "#/components/schemas/SpaceUserCreateNestedManyWithoutUserInput"
@@ -7562,10 +7893,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "spaces": {
             "$ref": "#/components/schemas/SpaceUserUncheckedCreateNestedManyWithoutUserInput"
@@ -7850,6 +8195,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -7860,6 +8208,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -7926,6 +8277,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -7936,6 +8290,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -8412,10 +8769,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "lists": {
             "$ref": "#/components/schemas/ListCreateNestedManyWithoutOwnerInput"
@@ -8449,10 +8820,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "lists": {
             "$ref": "#/components/schemas/ListUncheckedCreateNestedManyWithoutOwnerInput"
@@ -8761,6 +9146,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -8771,6 +9159,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -8837,6 +9228,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -8847,6 +9241,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -9028,8 +9425,15 @@
             "type": "string"
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "list": {
             "$ref": "#/components/schemas/ListCreateNestedOneWithoutTodosInput"
@@ -9061,8 +9465,15 @@
             "type": "string"
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           }
         },
         "required": [
@@ -9511,6 +9922,9 @@
               {
                 "type": "string",
                 "format": "date-time"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -9792,10 +10206,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "spaces": {
             "$ref": "#/components/schemas/SpaceUserCreateNestedManyWithoutUserInput"
@@ -9829,10 +10257,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "spaces": {
             "$ref": "#/components/schemas/SpaceUserUncheckedCreateNestedManyWithoutUserInput"
@@ -9885,8 +10327,15 @@
             "type": "string"
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "owner": {
             "$ref": "#/components/schemas/UserCreateNestedOneWithoutTodosInput"
@@ -9918,8 +10367,15 @@
             "type": "string"
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           }
         },
         "required": [
@@ -10220,6 +10676,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -10230,6 +10689,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -10296,6 +10758,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -10306,6 +10771,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -10412,10 +10880,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "spaces": {
             "$ref": "#/components/schemas/SpaceUserCreateNestedManyWithoutUserInput"
@@ -10449,10 +10931,24 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "spaces": {
             "$ref": "#/components/schemas/SpaceUserUncheckedCreateNestedManyWithoutUserInput"
@@ -10670,6 +11166,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -10680,6 +11179,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -10746,6 +11248,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -10756,6 +11261,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -11684,6 +12192,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -11755,6 +12266,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -11823,6 +12337,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -12044,6 +12561,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -12115,6 +12635,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -12183,6 +12706,9 @@
               },
               {
                 "$ref": "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+              },
+              {
+                "type": "null"
               }
             ]
           }
@@ -13271,19 +13797,54 @@
         "type": "object",
         "properties": {
           "_count": {
-            "$ref": "#/components/schemas/SpaceCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/SpaceAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/SpaceSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/SpaceMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/SpaceMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceMaxAggregateOutputType"
+              }
+            ]
           }
         }
       },
@@ -13311,19 +13872,54 @@
             "type": "integer"
           },
           "_count": {
-            "$ref": "#/components/schemas/SpaceCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/SpaceAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/SpaceSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/SpaceMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/SpaceMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceMaxAggregateOutputType"
+              }
+            ]
           }
         },
         "required": [
@@ -13339,19 +13935,54 @@
         "type": "object",
         "properties": {
           "_count": {
-            "$ref": "#/components/schemas/SpaceUserCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/SpaceUserAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/SpaceUserSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/SpaceUserMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/SpaceUserMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserMaxAggregateOutputType"
+              }
+            ]
           }
         }
       },
@@ -13379,19 +14010,54 @@
             "type": "string"
           },
           "_count": {
-            "$ref": "#/components/schemas/SpaceUserCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/SpaceUserAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/SpaceUserSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/SpaceUserMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/SpaceUserMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpaceUserMaxAggregateOutputType"
+              }
+            ]
           }
         },
         "required": [
@@ -13407,19 +14073,54 @@
         "type": "object",
         "properties": {
           "_count": {
-            "$ref": "#/components/schemas/UserCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/UserAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/UserSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/UserMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/UserMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserMaxAggregateOutputType"
+              }
+            ]
           }
         }
       },
@@ -13441,25 +14142,74 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "_count": {
-            "$ref": "#/components/schemas/UserCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/UserAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/UserSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/UserMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/UserMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/UserMaxAggregateOutputType"
+              }
+            ]
           }
         },
         "required": [
@@ -13473,19 +14223,54 @@
         "type": "object",
         "properties": {
           "_count": {
-            "$ref": "#/components/schemas/ListCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/ListAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/ListSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/ListMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/ListMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListMaxAggregateOutputType"
+              }
+            ]
           }
         }
       },
@@ -13516,19 +14301,54 @@
             "type": "boolean"
           },
           "_count": {
-            "$ref": "#/components/schemas/ListCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/ListAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/ListSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/ListMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/ListMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ListMaxAggregateOutputType"
+              }
+            ]
           }
         },
         "required": [
@@ -13545,19 +14365,54 @@
         "type": "object",
         "properties": {
           "_count": {
-            "$ref": "#/components/schemas/TodoCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/TodoAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/TodoSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/TodoMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/TodoMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoMaxAggregateOutputType"
+              }
+            ]
           }
         }
       },
@@ -13585,23 +14440,65 @@
             "type": "string"
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "_count": {
-            "$ref": "#/components/schemas/TodoCountAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoCountAggregateOutputType"
+              }
+            ]
           },
           "_avg": {
-            "$ref": "#/components/schemas/TodoAvgAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoAvgAggregateOutputType"
+              }
+            ]
           },
           "_sum": {
-            "$ref": "#/components/schemas/TodoSumAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoSumAggregateOutputType"
+              }
+            ]
           },
           "_min": {
-            "$ref": "#/components/schemas/TodoMinAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoMinAggregateOutputType"
+              }
+            ]
           },
           "_max": {
-            "$ref": "#/components/schemas/TodoMaxAggregateOutputType"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TodoMaxAggregateOutputType"
+              }
+            ]
           }
         },
         "required": [
@@ -13652,10 +14549,24 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "ownerId": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         }
       },
@@ -13663,10 +14574,24 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           }
         }
       },
@@ -13674,24 +14599,66 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "slug": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           }
         }
       },
@@ -13699,24 +14666,66 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "slug": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           }
         }
       },
@@ -13759,13 +14768,34 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "spaceId": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "userId": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         }
       },
@@ -13773,13 +14803,34 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "spaceId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "userId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           }
         }
       },
@@ -13787,24 +14838,66 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "spaceId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "userId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "role": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -13812,24 +14905,66 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "spaceId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "userId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "role": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -13872,7 +15007,14 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         }
       },
@@ -13880,7 +15022,14 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           }
         }
       },
@@ -13888,24 +15037,66 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "email": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -13913,24 +15104,66 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "email": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "password": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -13977,13 +15210,34 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "spaceId": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "ownerId": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         }
       },
@@ -13991,13 +15245,34 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "spaceId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           }
         }
       },
@@ -14005,27 +15280,76 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "spaceId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "title": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "private": {
-            "type": "boolean"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
           }
         }
       },
@@ -14033,27 +15357,76 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "spaceId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "title": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "private": {
-            "type": "boolean"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
           }
         }
       },
@@ -14100,13 +15473,34 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "ownerId": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "listId": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         }
       },
@@ -14114,13 +15508,34 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "listId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           }
         }
       },
@@ -14128,28 +15543,77 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "listId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "title": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           }
         }
       },
@@ -14157,28 +15621,77 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "ownerId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "listId": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "title": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "completedAt": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           }
         }
       },
