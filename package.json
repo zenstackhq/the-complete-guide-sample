@@ -3,8 +3,7 @@
     "license": "MIT",
     "scripts": {
         "build": "tsc",
-        "generate": "zenstack generate",
-        "dev": "ts-node ./script.ts"
+        "generate": "zenstack generate"
     },
     "dependencies": {
         "@prisma/client": "^5.12.1",
