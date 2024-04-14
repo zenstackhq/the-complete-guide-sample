@@ -18,7 +18,7 @@ export default function TodoList() {
         { enabled: !!session?.user },
     );
 
-    const { mutate: create } = useCreateTodo(undefined, true, true); // optimistic update
+    const { mutate: create } = useCreateTodo({ optimisticUpdate: true });
     const { data: todos } = useFindManyTodo(
         {
             where: { listId },
@@ -33,7 +33,6 @@ export default function TodoList() {
         create({
             data: {
                 title,
-                owner: { connect: { id: session?.user.id } },
                 list: { connect: { id: listId } },
             },
         });

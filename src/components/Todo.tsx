@@ -7,8 +7,8 @@ type Props = {
 };
 
 export default function TodoComponent({ value, optimistic }: Props) {
-    const update = useUpdateTodo(undefined, true, true); // optimistic update
-    const del = useDeleteTodo(undefined, true, true); // optimistic update
+    const update = useUpdateTodo({ optimisticUpdate: true });
+    const del = useDeleteTodo({ optimisticUpdate: true });
 
     function onDelete() {
         del.mutate({ where: { id: value.id } });

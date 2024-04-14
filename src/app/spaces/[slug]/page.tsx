@@ -30,7 +30,6 @@ export default function SpaceHome() {
                 data: {
                     title,
                     space: { connect: { id: space?.id } },
-                    owner: { connect: { id: session?.user.id } },
                 },
             });
         }

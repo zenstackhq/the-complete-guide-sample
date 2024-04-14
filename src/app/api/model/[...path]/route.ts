@@ -6,7 +6,8 @@ import { db } from '~/server/db';
 
 async function getPrisma() {
     const session = await getServerSession(authOptions);
-    return enhance(db, { user: session?.user });
+    const user = session ? { id: session.user.id } : undefined;
+    return enhance(db, { user });
 }
 
 const handler = NextRequestHandler({ getPrisma, useAppDir: true });
