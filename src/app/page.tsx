@@ -18,7 +18,6 @@ const Home: NextPage = () => {
         data: {
           name,
           slug: nanoid(6),
-          owner: { connect: { id: session?.user.id } },
           // add the creating user as an admin member
           members: {
             create: {

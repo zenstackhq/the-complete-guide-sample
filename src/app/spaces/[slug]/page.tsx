@@ -11,7 +11,6 @@ import {
 
 export default function SpaceHome() {
   const { slug } = useParams<{ slug: string }>();
-  console.log("slug", slug);
 
   const { data: session } = useSession();
 
@@ -38,7 +37,6 @@ export default function SpaceHome() {
         data: {
           title,
           space: { connect: { id: space?.id } },
-          owner: { connect: { id: session?.user.id } },
         },
       });
     }
