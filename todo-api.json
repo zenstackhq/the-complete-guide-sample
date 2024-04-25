@@ -2285,8 +2285,7 @@
         },
         "required": [
           "name",
-          "slug",
-          "owner"
+          "slug"
         ]
       },
       "SpaceUpdateInput": {
@@ -2716,8 +2715,7 @@
         },
         "required": [
           "title",
-          "space",
-          "owner"
+          "space"
         ]
       },
       "ListUpdateInput": {
@@ -2857,7 +2855,6 @@
         },
         "required": [
           "title",
-          "owner",
           "list"
         ]
       },
@@ -8042,8 +8039,7 @@
           }
         },
         "required": [
-          "title",
-          "owner"
+          "title"
         ]
       },
       "ListUncheckedCreateWithoutSpaceInput": {
@@ -8074,7 +8070,6 @@
           }
         },
         "required": [
-          "ownerId",
           "title"
         ]
       },
@@ -8695,8 +8690,7 @@
         },
         "required": [
           "name",
-          "slug",
-          "owner"
+          "slug"
         ]
       },
       "SpaceUncheckedCreateWithoutMembersInput": {
@@ -8728,8 +8722,7 @@
         },
         "required": [
           "name",
-          "slug",
-          "ownerId"
+          "slug"
         ]
       },
       "SpaceCreateOrConnectWithoutMembersInput": {
@@ -10132,8 +10125,7 @@
         },
         "required": [
           "name",
-          "slug",
-          "owner"
+          "slug"
         ]
       },
       "SpaceUncheckedCreateWithoutListsInput": {
@@ -10165,8 +10157,7 @@
         },
         "required": [
           "name",
-          "slug",
-          "ownerId"
+          "slug"
         ]
       },
       "SpaceCreateOrConnectWithoutListsInput": {
@@ -10342,8 +10333,7 @@
           }
         },
         "required": [
-          "title",
-          "owner"
+          "title"
         ]
       },
       "TodoUncheckedCreateWithoutListInput": {
@@ -10379,7 +10369,6 @@
           }
         },
         "required": [
-          "ownerId",
           "title"
         ]
       },
@@ -11012,8 +11001,7 @@
         },
         "required": [
           "title",
-          "space",
-          "owner"
+          "space"
         ]
       },
       "ListUncheckedCreateWithoutTodosInput": {
@@ -11045,7 +11033,6 @@
         },
         "required": [
           "spaceId",
-          "ownerId",
           "title"
         ]
       },
