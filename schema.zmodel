@@ -9,15 +9,15 @@ generator js {
 
 // where users can collaborate on todo lists and items
 model Space {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name String
-  slug String @unique @regex('^[0-9a-zA-Z_\-]{4,16}$')
-  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId Int @default(auth().id)
-  members SpaceUser[]
-  lists List[]
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  name      String
+  slug      String      @unique @regex('^[0-9a-zA-Z_\-]{4,16}$')
+  owner     User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   Int         @default(auth().id)
+  members   SpaceUser[]
+  lists     List[]
 
   // require login
   @@deny('all', auth() == null)
@@ -34,14 +34,14 @@ model Space {
 
 // a join table for many-to-many relation between `Space` and `User`
 model SpaceUser {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-  spaceId Int
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-  role String @default("USER")
+  space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId   Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  role      String   @default("USER")
 
   @@unique([userId, spaceId])
 
@@ -57,15 +57,15 @@ model SpaceUser {
 
 // user
 model User {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email String @unique @email
-  password String? @password @omit
-  name String?
-  spaces SpaceUser[] // user's space membership
-  lists List[]
-  todos Todo[]
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  email       String      @unique @email
+  password    String?     @password @omit
+  name        String?
+  spaces      SpaceUser[] // user's space membership
+  lists       List[]
+  todos       Todo[]
   ownedSpaces Space[] // spaces owned by the user
 
   // everyone can sign up
@@ -80,16 +80,16 @@ model User {
 
 // todo list
 model List {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-  spaceId Int
-  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId Int @default(auth().id) @deny('update', true)
-  title String
-  private Boolean @default(false)
-  todos Todo[]
+  space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId   Int
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   Int      @default(auth().id) @deny('update', true)
+  title     String
+  private   Boolean  @default(false)
+  todos     Todo[]
 
   // require login
   @@deny('all', auth() == null)
@@ -106,14 +106,14 @@ model List {
 
 // todo item
 model Todo {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId Int @default(auth().id) @deny('update', true)
-  list List @relation(fields: [listId], references: [id], onDelete: Cascade)
-  listId Int
-  title String
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId     Int       @default(auth().id) @deny('update', true)
+  list        List      @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId      Int
+  title       String
   completedAt DateTime?
 
   // require login
