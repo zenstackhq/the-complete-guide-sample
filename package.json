@@ -17,9 +17,9 @@
         "@prisma/client": "^5.12.1",
         "@t3-oss/env-nextjs": "^0.7.0",
         "@tanstack/react-query": "^5.8.4",
-        "@zenstackhq/runtime": "^2.0.0-beta.12",
-        "@zenstackhq/server": "^2.0.0-beta.12",
-        "@zenstackhq/tanstack-query": "^2.0.0-beta.12",
+        "@zenstackhq/runtime": "^2.0.0",
+        "@zenstackhq/server": "^2.0.0",
+        "@zenstackhq/tanstack-query": "^2.0.0",
         "nanoid": "^5.0.3",
         "next": "^14.0.0",
         "next-auth": "^4.24.4",
@@ -45,7 +45,7 @@
         "prisma": "^5.12.1",
         "tailwindcss": "^3.3.3",
         "typescript": "^5.4.5",
-        "zenstack": "^2.0.0-beta.12"
+        "zenstack": "^2.0.0"
     },
     "ct3aMetadata": {
         "initVersion": "7.23.2"

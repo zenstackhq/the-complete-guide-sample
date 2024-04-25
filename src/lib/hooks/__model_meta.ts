@@ -108,12 +108,12 @@ const metadata = {
                 },
             }
             , uniqueConstraints: {
-                userId_spaceId: {
-                    name: "userId_spaceId",
-                    fields: ["userId", "spaceId"]
-                }, id: {
+                id: {
                     name: "id",
                     fields: ["id"]
+                }, userId_spaceId: {
+                    name: "userId_spaceId",
+                    fields: ["userId", "spaceId"]
                 },
             }
             ,
