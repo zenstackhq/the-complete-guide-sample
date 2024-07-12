@@ -1,9 +1,10 @@
 /* eslint-disable */
-import type { Prisma, Todo } from ".zenstack/models";
+import type { Prisma, Todo } from "@zenstackhq/runtime/models";
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/react-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime-v5/react';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime-v5/react';
 import type { PickEnumerable, CheckSelect, QueryError, ExtraQueryOptions, ExtraMutationOptions } from '@zenstackhq/tanstack-query/runtime-v5';
+import type { PolicyCrudKind } from '@zenstackhq/runtime'
 import metadata from './__model_meta';
 type DefaultError = QueryError;
 import { useSuspenseModelQuery, useSuspenseInfiniteModelQuery } from '@zenstackhq/tanstack-query/runtime-v5/react';
@@ -29,13 +30,33 @@ export function useCreateTodo(options?: Omit<(UseMutationOptions<(Todo | undefin
     return mutation;
 }
 
+export function useCreateManyTodo(options?: Omit<(UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoCreateManyArgs> & ExtraMutationOptions), 'mutationFn'>) {
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation =
+        useModelMutation<Prisma.TodoCreateManyArgs, DefaultError, Prisma.BatchPayload, false>('Todo', 'POST', `${endpoint}/todo/createMany`, metadata, options, fetch, false)
+        ;
+    const mutation = {
+        ..._mutation,
+        mutateAsync: async <T extends Prisma.TodoCreateManyArgs>(
+            args: Prisma.SelectSubset<T, Prisma.TodoCreateManyArgs>,
+            options?: Omit<(UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SelectSubset<T, Prisma.TodoCreateManyArgs>> & ExtraMutationOptions), 'mutationFn'>
+        ) => {
+            return (await _mutation.mutateAsync(
+                args,
+                options as any
+            )) as Prisma.BatchPayload;
+        },
+    };
+    return mutation;
+}
+
 export function useFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, TQueryFnData = Array<Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>, options?: (Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/findMany`, args, options, fetch);
 }
 
-export function useInfiniteFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, TQueryFnData = Array<Prisma.TodoGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>, options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey'>) {
-    options = options ?? { initialPageParam: undefined, getNextPageParam: () => null };
+export function useInfiniteFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, TQueryFnData = Array<Prisma.TodoGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>, options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>) {
+    options = options ?? { getNextPageParam: () => null };
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/findMany`, args, options, fetch);
 }
@@ -45,8 +66,8 @@ export function useSuspenseFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, T
     return useSuspenseModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/findMany`, args, options, fetch);
 }
 
-export function useSuspenseInfiniteFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, TQueryFnData = Array<Prisma.TodoGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>, options?: Omit<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey'>) {
-    options = options ?? { initialPageParam: undefined, getNextPageParam: () => null };
+export function useSuspenseInfiniteFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, TQueryFnData = Array<Prisma.TodoGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>, options?: Omit<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>) {
+    options = options ?? { getNextPageParam: () => null };
     const { endpoint, fetch } = getHooksContext();
     return useSuspenseInfiniteModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/findMany`, args, options, fetch);
 }
@@ -299,4 +320,9 @@ export function useCountTodo<TArgs extends Prisma.TodoCountArgs, TQueryFnData = 
 export function useSuspenseCountTodo<TArgs extends Prisma.TodoCountArgs, TQueryFnData = TArgs extends { select: any; } ? TArgs['select'] extends true ? number : Prisma.GetScalarType<TArgs['select'], Prisma.TodoCountAggregateOutputType> : number, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>, options?: (Omit<UseSuspenseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useSuspenseModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/count`, args, options, fetch);
+}
+
+export function useCheckTodo<TError = DefaultError>(args: { operation: PolicyCrudKind; where?: { id?: string; ownerId?: string; listId?: string; title?: string }; }, options?: (Omit<UseQueryOptions<boolean, TError, boolean>, 'queryKey'> & ExtraQueryOptions)) {
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery<boolean, boolean, TError>('Todo', `${endpoint}/todo/check`, args, options, fetch);
 }

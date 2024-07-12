@@ -1,9 +1,10 @@
 /* eslint-disable */
-import type { Prisma, SpaceUser } from ".zenstack/models";
+import type { Prisma, SpaceUser } from "@zenstackhq/runtime/models";
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/react-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime-v5/react';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime-v5/react';
 import type { PickEnumerable, CheckSelect, QueryError, ExtraQueryOptions, ExtraMutationOptions } from '@zenstackhq/tanstack-query/runtime-v5';
+import type { PolicyCrudKind } from '@zenstackhq/runtime'
 import metadata from './__model_meta';
 type DefaultError = QueryError;
 import { useSuspenseModelQuery, useSuspenseInfiniteModelQuery } from '@zenstackhq/tanstack-query/runtime-v5/react';
@@ -29,13 +30,33 @@ export function useCreateSpaceUser(options?: Omit<(UseMutationOptions<(SpaceUser
     return mutation;
 }
 
+export function useCreateManySpaceUser(options?: Omit<(UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserCreateManyArgs> & ExtraMutationOptions), 'mutationFn'>) {
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation =
+        useModelMutation<Prisma.SpaceUserCreateManyArgs, DefaultError, Prisma.BatchPayload, false>('SpaceUser', 'POST', `${endpoint}/spaceUser/createMany`, metadata, options, fetch, false)
+        ;
+    const mutation = {
+        ..._mutation,
+        mutateAsync: async <T extends Prisma.SpaceUserCreateManyArgs>(
+            args: Prisma.SelectSubset<T, Prisma.SpaceUserCreateManyArgs>,
+            options?: Omit<(UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SelectSubset<T, Prisma.SpaceUserCreateManyArgs>> & ExtraMutationOptions), 'mutationFn'>
+        ) => {
+            return (await _mutation.mutateAsync(
+                args,
+                options as any
+            )) as Prisma.BatchPayload;
+        },
+    };
+    return mutation;
+}
+
 export function useFindManySpaceUser<TArgs extends Prisma.SpaceUserFindManyArgs, TQueryFnData = Array<Prisma.SpaceUserGetPayload<TArgs> & { $optimistic?: boolean }>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>, options?: (Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('SpaceUser', `${endpoint}/spaceUser/findMany`, args, options, fetch);
 }
 
-export function useInfiniteFindManySpaceUser<TArgs extends Prisma.SpaceUserFindManyArgs, TQueryFnData = Array<Prisma.SpaceUserGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>, options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey'>) {
-    options = options ?? { initialPageParam: undefined, getNextPageParam: () => null };
+export function useInfiniteFindManySpaceUser<TArgs extends Prisma.SpaceUserFindManyArgs, TQueryFnData = Array<Prisma.SpaceUserGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>, options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>) {
+    options = options ?? { getNextPageParam: () => null };
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>('SpaceUser', `${endpoint}/spaceUser/findMany`, args, options, fetch);
 }
@@ -45,8 +66,8 @@ export function useSuspenseFindManySpaceUser<TArgs extends Prisma.SpaceUserFindM
     return useSuspenseModelQuery<TQueryFnData, TData, TError>('SpaceUser', `${endpoint}/spaceUser/findMany`, args, options, fetch);
 }
 
-export function useSuspenseInfiniteFindManySpaceUser<TArgs extends Prisma.SpaceUserFindManyArgs, TQueryFnData = Array<Prisma.SpaceUserGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>, options?: Omit<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey'>) {
-    options = options ?? { initialPageParam: undefined, getNextPageParam: () => null };
+export function useSuspenseInfiniteFindManySpaceUser<TArgs extends Prisma.SpaceUserFindManyArgs, TQueryFnData = Array<Prisma.SpaceUserGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>, options?: Omit<UseSuspenseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>) {
+    options = options ?? { getNextPageParam: () => null };
     const { endpoint, fetch } = getHooksContext();
     return useSuspenseInfiniteModelQuery<TQueryFnData, TData, TError>('SpaceUser', `${endpoint}/spaceUser/findMany`, args, options, fetch);
 }
@@ -299,4 +320,9 @@ export function useCountSpaceUser<TArgs extends Prisma.SpaceUserCountArgs, TQuer
 export function useSuspenseCountSpaceUser<TArgs extends Prisma.SpaceUserCountArgs, TQueryFnData = TArgs extends { select: any; } ? TArgs['select'] extends true ? number : Prisma.GetScalarType<TArgs['select'], Prisma.SpaceUserCountAggregateOutputType> : number, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserCountArgs>, options?: (Omit<UseSuspenseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useSuspenseModelQuery<TQueryFnData, TData, TError>('SpaceUser', `${endpoint}/spaceUser/count`, args, options, fetch);
+}
+
+export function useCheckSpaceUser<TError = DefaultError>(args: { operation: PolicyCrudKind; where?: { id?: string; spaceId?: string; userId?: string; role?: string }; }, options?: (Omit<UseQueryOptions<boolean, TError, boolean>, 'queryKey'> & ExtraQueryOptions)) {
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery<boolean, boolean, TError>('SpaceUser', `${endpoint}/spaceUser/check`, args, options, fetch);
 }
