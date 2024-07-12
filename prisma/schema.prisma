@@ -82,9 +82,7 @@ model List {
   todos     Todo[]
 }
 
-/// @@deny('all', auth() == null)
-/// @@allow('all', list.owner == auth())
-/// @@allow('all', list.space.members?[user == auth()] && !list.private)
+/// @@allow('all', check(list, 'read'))
 model Todo {
   id          String    @id() @default(cuid())
   createdAt   DateTime  @default(now())
