@@ -2344,6 +2344,35 @@
           }
         }
       },
+      "SpaceCreateManyInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "slug"
+        ]
+      },
       "SpaceUpdateManyMutationInput": {
         "type": "object",
         "properties": {
@@ -2459,6 +2488,35 @@
             "$ref": "#/components/schemas/UserUpdateOneRequiredWithoutSpacesNestedInput"
           }
         }
+      },
+      "SpaceUserCreateManyInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "spaceId": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "spaceId",
+          "userId"
+        ]
       },
       "SpaceUserUpdateManyMutationInput": {
         "type": "object",
@@ -2623,6 +2681,48 @@
           }
         }
       },
+      "UserCreateManyInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
       "UserUpdateManyMutationInput": {
         "type": "object",
         "properties": {
@@ -2774,6 +2874,38 @@
           }
         }
       },
+      "ListCreateManyInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "spaceId": {
+            "type": "integer"
+          },
+          "ownerId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "private": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "spaceId",
+          "title"
+        ]
+      },
       "ListUpdateManyMutationInput": {
         "type": "object",
         "properties": {
@@ -2914,6 +3046,46 @@
             "$ref": "#/components/schemas/ListUpdateOneRequiredWithoutTodosNestedInput"
           }
         }
+      },
+      "TodoCreateManyInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerId": {
+            "type": "integer"
+          },
+          "listId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "completedAt": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
+          }
+        },
+        "required": [
+          "listId",
+          "title"
+        ]
       },
       "TodoUpdateManyMutationInput": {
         "type": "object",
@@ -3855,6 +4027,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceUserCreateManySpaceInputEnvelope"
+          },
           "connect": {
             "oneOf": [
               {
@@ -3907,6 +4082,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/ListCreateManySpaceInputEnvelope"
           },
           "connect": {
             "oneOf": [
@@ -3961,6 +4139,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceUserCreateManySpaceInputEnvelope"
+          },
           "connect": {
             "oneOf": [
               {
@@ -4013,6 +4194,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/ListCreateManySpaceInputEnvelope"
           },
           "connect": {
             "oneOf": [
@@ -4133,6 +4317,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceUserCreateManySpaceInputEnvelope"
           },
           "set": {
             "oneOf": [
@@ -4277,6 +4464,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/ListCreateManySpaceInputEnvelope"
           },
           "set": {
             "oneOf": [
@@ -4442,6 +4632,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceUserCreateManySpaceInputEnvelope"
+          },
           "set": {
             "oneOf": [
               {
@@ -4585,6 +4778,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/ListCreateManySpaceInputEnvelope"
           },
           "set": {
             "oneOf": [
@@ -4833,6 +5029,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceUserCreateManyUserInputEnvelope"
+          },
           "connect": {
             "oneOf": [
               {
@@ -4885,6 +5084,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/ListCreateManyOwnerInputEnvelope"
           },
           "connect": {
             "oneOf": [
@@ -4939,6 +5141,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/TodoCreateManyOwnerInputEnvelope"
+          },
           "connect": {
             "oneOf": [
               {
@@ -4991,6 +5196,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceCreateManyOwnerInputEnvelope"
           },
           "connect": {
             "oneOf": [
@@ -5045,6 +5253,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceUserCreateManyUserInputEnvelope"
+          },
           "connect": {
             "oneOf": [
               {
@@ -5097,6 +5308,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/ListCreateManyOwnerInputEnvelope"
           },
           "connect": {
             "oneOf": [
@@ -5151,6 +5365,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/TodoCreateManyOwnerInputEnvelope"
+          },
           "connect": {
             "oneOf": [
               {
@@ -5203,6 +5420,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceCreateManyOwnerInputEnvelope"
           },
           "connect": {
             "oneOf": [
@@ -5284,6 +5504,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceUserCreateManyUserInputEnvelope"
           },
           "set": {
             "oneOf": [
@@ -5429,6 +5652,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/ListCreateManyOwnerInputEnvelope"
+          },
           "set": {
             "oneOf": [
               {
@@ -5572,6 +5798,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/TodoCreateManyOwnerInputEnvelope"
           },
           "set": {
             "oneOf": [
@@ -5717,6 +5946,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceCreateManyOwnerInputEnvelope"
+          },
           "set": {
             "oneOf": [
               {
@@ -5860,6 +6092,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceUserCreateManyUserInputEnvelope"
           },
           "set": {
             "oneOf": [
@@ -6005,6 +6240,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/ListCreateManyOwnerInputEnvelope"
+          },
           "set": {
             "oneOf": [
               {
@@ -6149,6 +6387,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/TodoCreateManyOwnerInputEnvelope"
+          },
           "set": {
             "oneOf": [
               {
@@ -6292,6 +6533,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/SpaceCreateManyOwnerInputEnvelope"
           },
           "set": {
             "oneOf": [
@@ -6466,6 +6710,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/TodoCreateManyListInputEnvelope"
+          },
           "connect": {
             "oneOf": [
               {
@@ -6518,6 +6765,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/TodoCreateManyListInputEnvelope"
           },
           "connect": {
             "oneOf": [
@@ -6667,6 +6917,9 @@
               }
             ]
           },
+          "createMany": {
+            "$ref": "#/components/schemas/TodoCreateManyListInputEnvelope"
+          },
           "set": {
             "oneOf": [
               {
@@ -6810,6 +7063,9 @@
                 }
               }
             ]
+          },
+          "createMany": {
+            "$ref": "#/components/schemas/TodoCreateManyListInputEnvelope"
           },
           "set": {
             "oneOf": [
@@ -8014,6 +8270,27 @@
           "create"
         ]
       },
+      "SpaceUserCreateManySpaceInputEnvelope": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SpaceUserCreateManySpaceInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SpaceUserCreateManySpaceInput"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
       "ListCreateWithoutSpaceInput": {
         "type": "object",
         "properties": {
@@ -8093,6 +8370,27 @@
         "required": [
           "where",
           "create"
+        ]
+      },
+      "ListCreateManySpaceInputEnvelope": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ListCreateManySpaceInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ListCreateManySpaceInput"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
         ]
       },
       "UserUpsertWithoutOwnedSpacesInput": {
@@ -9320,6 +9618,27 @@
           "create"
         ]
       },
+      "SpaceUserCreateManyUserInputEnvelope": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SpaceUserCreateManyUserInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SpaceUserCreateManyUserInput"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
       "ListCreateWithoutOwnerInput": {
         "type": "object",
         "properties": {
@@ -9401,6 +9720,27 @@
         "required": [
           "where",
           "create"
+        ]
+      },
+      "ListCreateManyOwnerInputEnvelope": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ListCreateManyOwnerInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ListCreateManyOwnerInput"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
         ]
       },
       "TodoCreateWithoutOwnerInput": {
@@ -9496,6 +9836,27 @@
           "create"
         ]
       },
+      "TodoCreateManyOwnerInputEnvelope": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TodoCreateManyOwnerInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TodoCreateManyOwnerInput"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
       "SpaceCreateWithoutOwnerInput": {
         "type": "object",
         "properties": {
@@ -9577,6 +9938,27 @@
         "required": [
           "where",
           "create"
+        ]
+      },
+      "SpaceCreateManyOwnerInputEnvelope": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SpaceCreateManyOwnerInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SpaceCreateManyOwnerInput"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
         ]
       },
       "SpaceUserUpsertWithWhereUniqueWithoutUserInput": {
@@ -10392,6 +10774,27 @@
         "required": [
           "where",
           "create"
+        ]
+      },
+      "TodoCreateManyListInputEnvelope": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TodoCreateManyListInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TodoCreateManyListInput"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
         ]
       },
       "SpaceUpsertWithoutListsInput": {
@@ -11448,6 +11851,59 @@
           }
         }
       },
+      "SpaceUserCreateManySpaceInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
+      "ListCreateManySpaceInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "private": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
       "SpaceUserUpdateWithoutSpaceInput": {
         "type": "object",
         "properties": {
@@ -11791,6 +12247,123 @@
             ]
           }
         }
+      },
+      "SpaceUserCreateManyUserInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "spaceId": {
+            "type": "integer"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "spaceId"
+        ]
+      },
+      "ListCreateManyOwnerInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "spaceId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "private": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "spaceId",
+          "title"
+        ]
+      },
+      "TodoCreateManyOwnerInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "listId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "completedAt": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
+          }
+        },
+        "required": [
+          "listId",
+          "title"
+        ]
+      },
+      "SpaceCreateManyOwnerInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "slug"
+        ]
       },
       "SpaceUserUpdateWithoutUserInput": {
         "type": "object",
@@ -12504,6 +13077,42 @@
             ]
           }
         }
+      },
+      "TodoCreateManyListInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "completedAt": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
+          }
+        },
+        "required": [
+          "title"
+        ]
       },
       "TodoUpdateWithoutListInput": {
         "type": "object",
@@ -15767,6 +16376,34 @@
           }
         }
       },
+      "SpaceCreateManyArgs": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SpaceCreateManyInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SpaceCreateManyInput"
+                }
+              }
+            ]
+          },
+          "skipDuplicates": {
+            "type": "boolean",
+            "description": "Do not insert records with unique fields or ID fields that already exist."
+          },
+          "meta": {
+            "$ref": "#/components/schemas/_Meta"
+          }
+        }
+      },
       "SpaceFindUniqueArgs": {
         "type": "object",
         "required": [
@@ -16042,6 +16679,34 @@
           },
           "data": {
             "$ref": "#/components/schemas/SpaceUserCreateInput"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/_Meta"
+          }
+        }
+      },
+      "SpaceUserCreateManyArgs": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SpaceUserCreateManyInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SpaceUserCreateManyInput"
+                }
+              }
+            ]
+          },
+          "skipDuplicates": {
+            "type": "boolean",
+            "description": "Do not insert records with unique fields or ID fields that already exist."
           },
           "meta": {
             "$ref": "#/components/schemas/_Meta"
@@ -16329,6 +16994,34 @@
           }
         }
       },
+      "UserCreateManyArgs": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/UserCreateManyInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/UserCreateManyInput"
+                }
+              }
+            ]
+          },
+          "skipDuplicates": {
+            "type": "boolean",
+            "description": "Do not insert records with unique fields or ID fields that already exist."
+          },
+          "meta": {
+            "$ref": "#/components/schemas/_Meta"
+          }
+        }
+      },
       "UserFindUniqueArgs": {
         "type": "object",
         "required": [
@@ -16610,6 +17303,34 @@
           }
         }
       },
+      "ListCreateManyArgs": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ListCreateManyInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ListCreateManyInput"
+                }
+              }
+            ]
+          },
+          "skipDuplicates": {
+            "type": "boolean",
+            "description": "Do not insert records with unique fields or ID fields that already exist."
+          },
+          "meta": {
+            "$ref": "#/components/schemas/_Meta"
+          }
+        }
+      },
       "ListFindUniqueArgs": {
         "type": "object",
         "required": [
@@ -16885,6 +17606,34 @@
           },
           "data": {
             "$ref": "#/components/schemas/TodoCreateInput"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/_Meta"
+          }
+        }
+      },
+      "TodoCreateManyArgs": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TodoCreateManyInput"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TodoCreateManyInput"
+                }
+              }
+            ]
+          },
+          "skipDuplicates": {
+            "type": "boolean",
+            "description": "Do not insert records with unique fields or ID fields that already exist."
           },
           "meta": {
             "$ref": "#/components/schemas/_Meta"
@@ -17222,6 +17971,79 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SpaceCreateArgs"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/space/createMany": {
+      "post": {
+        "operationId": "createManySpace",
+        "description": "Create several Space",
+        "tags": [
+          "space"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/BatchPayload",
+                      "description": "The Prisma response data serialized with superjson"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/_Meta",
+                      "description": "The superjson serialization metadata for the \"data\" field"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Invalid request"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is unprocessable due to validation errors"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpaceCreateManyArgs"
               }
             }
           }
@@ -18239,6 +19061,79 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SpaceUserCreateArgs"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spaceUser/createMany": {
+      "post": {
+        "operationId": "createManySpaceUser",
+        "description": "Create several SpaceUser",
+        "tags": [
+          "spaceUser"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/BatchPayload",
+                      "description": "The Prisma response data serialized with superjson"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/_Meta",
+                      "description": "The superjson serialization metadata for the \"data\" field"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Invalid request"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is unprocessable due to validation errors"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpaceUserCreateManyArgs"
               }
             }
           }
@@ -19263,6 +20158,80 @@
         }
       }
     },
+    "/user/createMany": {
+      "post": {
+        "operationId": "createManyUser",
+        "description": "Create several User",
+        "tags": [
+          "user"
+        ],
+        "security": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/BatchPayload",
+                      "description": "The Prisma response data serialized with superjson"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/_Meta",
+                      "description": "The superjson serialization metadata for the \"data\" field"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Invalid request"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is unprocessable due to validation errors"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateManyArgs"
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/findUnique": {
       "get": {
         "operationId": "findUniqueUser",
@@ -20280,6 +21249,79 @@
         }
       }
     },
+    "/list/createMany": {
+      "post": {
+        "operationId": "createManyList",
+        "description": "Create several List",
+        "tags": [
+          "list"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/BatchPayload",
+                      "description": "The Prisma response data serialized with superjson"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/_Meta",
+                      "description": "The superjson serialization metadata for the \"data\" field"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Invalid request"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is unprocessable due to validation errors"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListCreateManyArgs"
+              }
+            }
+          }
+        }
+      }
+    },
     "/list/findUnique": {
       "get": {
         "operationId": "findUniqueList",
@@ -21291,6 +22333,79 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/TodoCreateArgs"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todo/createMany": {
+      "post": {
+        "operationId": "createManyTodo",
+        "description": "Create several Todo",
+        "tags": [
+          "todo"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/BatchPayload",
+                      "description": "The Prisma response data serialized with superjson"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/_Meta",
+                      "description": "The superjson serialization metadata for the \"data\" field"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Invalid request"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_Error"
+                }
+              }
+            },
+            "description": "Request is unprocessable due to validation errors"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoCreateManyArgs"
               }
             }
           }

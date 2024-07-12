@@ -70,19 +70,11 @@ A multi-tenant Todo application built with ZenStack.
 ## Todo
 
 - CREATE
-  - ❌ auth() == null
-  - ✅ list.owner == auth()
-  - ✅ list.space.members?[user == auth()] && !list.private
+  - ✅ check(list, 'read')
 - READ
-  - ❌ auth() == null
-  - ✅ list.owner == auth()
-  - ✅ list.space.members?[user == auth()] && !list.private
+  - ✅ check(list, 'read')
 - UPDATE
-  - ❌ auth() == null
-  - ✅ list.owner == auth()
-  - ✅ list.space.members?[user == auth()] && !list.private
+  - ✅ check(list, 'read')
 - DELETE
-  - ❌ auth() == null
-  - ✅ list.owner == auth()
-  - ✅ list.space.members?[user == auth()] && !list.private
+  - ✅ check(list, 'read')
     
