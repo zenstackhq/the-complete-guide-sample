@@ -4,12 +4,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 datasource db {
-    provider = "sqlite"
-    url = "file:./dev.db"
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 generator js {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 /// @@deny('all', auth() == null)
@@ -17,51 +17,51 @@ generator js {
 /// @@allow('read', members?[user == auth()])
 /// @@allow('update,delete', members?[user == auth() && role == 'ADMIN'])
 model Space {
-    id String @id() @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
-    name String
-    /// @regex('^[0-9a-zA-Z_-]{4,16}$')
-    slug String @unique()
-    members SpaceUser[]
-    lists List[]
-    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    ownerId String
+  id        String      @id() @default(cuid())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt()
+  name      String
+  /// @regex('^[0-9a-zA-Z_-]{4,16}$')
+  slug      String      @unique()
+  members   SpaceUser[]
+  lists     List[]
+  owner     User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   String
 }
 
 /// @@deny('all', auth() == null)
 /// @@allow('all', space.owner == auth() || space.members?[user == auth() && role == 'ADMIN'])
 /// @@allow('read', space.members?[user == auth()])
 model SpaceUser {
-    id String @id() @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
-    space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-    spaceId String
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId String
-    role String @default("USER")
+  id        String   @id() @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+  space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  role      String   @default("USER")
 
-    @@unique([userId, spaceId])
+  @@unique([userId, spaceId])
 }
 
 /// @@allow('create', true)
 /// @@allow('all', auth() == this)
 /// @@allow('read', spaces?[space.members?[user == auth()]])
 model User {
-    id String @id() @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
-    /// @email
-    email String @unique()
-    /// @password
-    /// @omit
-    password String?
-    name String?
-    spaces SpaceUser[]
-    lists List[]
-    todos Todo[]
-    ownedSpaces Space[]
+  id          String      @id() @default(cuid())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt()
+  /// @email
+  email       String      @unique()
+  /// @password
+  /// @omit
+  password    String?
+  name        String?
+  spaces      SpaceUser[]
+  lists       List[]
+  todos       Todo[]
+  ownedSpaces Space[]
 }
 
 /// @@deny('all', auth() == null)
@@ -69,31 +69,29 @@ model User {
 /// @@allow('create,update', owner == auth() && space.members?[user == auth()])
 /// @@allow('delete', owner == auth())
 model List {
-    id String @id() @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
-    space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-    spaceId String
-    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    /// @deny('update', true)
-    ownerId String
-    title String
-    private Boolean @default(false)
-    todos Todo[]
+  id        String   @id() @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+  space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId   String
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  /// @deny('update', true)
+  ownerId   String
+  title     String
+  private   Boolean  @default(false)
+  todos     Todo[]
 }
 
-/// @@deny('all', auth() == null)
-/// @@allow('all', list.owner == auth())
-/// @@allow('all', list.space.members?[user == auth()] && !list.private)
+/// @@allow('all', check(list, 'read'))
 model Todo {
-    id String @id() @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
-    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    /// @deny('update', true)
-    ownerId String
-    list List @relation(fields: [listId], references: [id], onDelete: Cascade)
-    listId String
-    title String
-    completedAt DateTime?
+  id          String    @id() @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt()
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  /// @deny('update', true)
+  ownerId     String
+  list        List      @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId      String
+  title       String
+  completedAt DateTime?
 }
