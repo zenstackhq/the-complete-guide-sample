@@ -27,17 +27,17 @@ A multi-tenant Todo application built with ZenStack.
 
 - CREATE
   - ❌ auth() == null
-  - ✅ space.owner == auth() || space.members?[user == auth() && role == 'ADMIN']
+  - ✅ space.owner == auth()
+  - ✅ auth() != user && space.members?[user == auth() && role == 'ADMIN']
 - READ
   - ❌ auth() == null
-  - ✅ space.owner == auth() || space.members?[user == auth() && role == 'ADMIN']
   - ✅ space.members?[user == auth()]
 - UPDATE
   - ❌ auth() == null
-  - ✅ space.owner == auth() || space.members?[user == auth() && role == 'ADMIN']
+  - ✅ space.members?[user == auth() && role == 'ADMIN']
 - DELETE
   - ❌ auth() == null
-  - ✅ space.owner == auth() || space.members?[user == auth() && role == 'ADMIN']
+  - ✅ space.members?[user == auth() && role == 'ADMIN']
 
 ## User
 
@@ -70,19 +70,11 @@ A multi-tenant Todo application built with ZenStack.
 ## Todo
 
 - CREATE
-  - ❌ auth() == null
-  - ✅ list.owner == auth()
-  - ✅ list.space.members?[user == auth()] && !list.private
+  - ✅ check(list, 'read')
 - READ
-  - ❌ auth() == null
-  - ✅ list.owner == auth()
-  - ✅ list.space.members?[user == auth()] && !list.private
+  - ✅ check(list, 'read')
 - UPDATE
-  - ❌ auth() == null
-  - ✅ list.owner == auth()
-  - ✅ list.space.members?[user == auth()] && !list.private
+  - ✅ check(list, 'read')
 - DELETE
-  - ❌ auth() == null
-  - ✅ list.owner == auth()
-  - ✅ list.space.members?[user == auth()] && !list.private
+  - ✅ check(list, 'read')
     
