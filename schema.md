@@ -27,17 +27,17 @@ A multi-tenant Todo application built with ZenStack.
 
 - CREATE
   - ❌ auth() == null
-  - ✅ space.owner == auth() || space.members?[user == auth() && role == 'ADMIN']
+  - ✅ space.owner == auth()
+  - ✅ auth() != user && space.members?[user == auth() && role == 'ADMIN']
 - READ
   - ❌ auth() == null
-  - ✅ space.owner == auth() || space.members?[user == auth() && role == 'ADMIN']
   - ✅ space.members?[user == auth()]
 - UPDATE
   - ❌ auth() == null
-  - ✅ space.owner == auth() || space.members?[user == auth() && role == 'ADMIN']
+  - ✅ space.members?[user == auth() && role == 'ADMIN']
 - DELETE
   - ❌ auth() == null
-  - ✅ space.owner == auth() || space.members?[user == auth() && role == 'ADMIN']
+  - ✅ space.members?[user == auth() && role == 'ADMIN']
 
 ## User
 

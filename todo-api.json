@@ -461,7 +461,7 @@
           "owner": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/UserRelationFilter"
+                "$ref": "#/components/schemas/UserScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/UserWhereInput"
@@ -594,7 +594,7 @@
           "owner": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/UserRelationFilter"
+                "$ref": "#/components/schemas/UserScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/UserWhereInput"
@@ -808,7 +808,7 @@
           "space": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/SpaceRelationFilter"
+                "$ref": "#/components/schemas/SpaceScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/SpaceWhereInput"
@@ -818,7 +818,7 @@
           "user": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/UserRelationFilter"
+                "$ref": "#/components/schemas/UserScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/UserWhereInput"
@@ -952,7 +952,7 @@
           "space": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/SpaceRelationFilter"
+                "$ref": "#/components/schemas/SpaceScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/SpaceWhereInput"
@@ -962,7 +962,7 @@
           "user": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/UserRelationFilter"
+                "$ref": "#/components/schemas/UserScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/UserWhereInput"
@@ -1554,7 +1554,7 @@
           "space": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/SpaceRelationFilter"
+                "$ref": "#/components/schemas/SpaceScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/SpaceWhereInput"
@@ -1564,7 +1564,7 @@
           "owner": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/UserRelationFilter"
+                "$ref": "#/components/schemas/UserScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/UserWhereInput"
@@ -1714,7 +1714,7 @@
           "space": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/SpaceRelationFilter"
+                "$ref": "#/components/schemas/SpaceScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/SpaceWhereInput"
@@ -1724,7 +1724,7 @@
           "owner": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/UserRelationFilter"
+                "$ref": "#/components/schemas/UserScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/UserWhereInput"
@@ -1959,7 +1959,7 @@
           "owner": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/UserRelationFilter"
+                "$ref": "#/components/schemas/UserScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/UserWhereInput"
@@ -1969,7 +1969,7 @@
           "list": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ListRelationFilter"
+                "$ref": "#/components/schemas/ListScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/ListWhereInput"
@@ -2124,7 +2124,7 @@
           "owner": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/UserRelationFilter"
+                "$ref": "#/components/schemas/UserScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/UserWhereInput"
@@ -2134,7 +2134,7 @@
           "list": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ListRelationFilter"
+                "$ref": "#/components/schemas/ListScalarRelationFilter"
               },
               {
                 "$ref": "#/components/schemas/ListWhereInput"
@@ -3281,7 +3281,7 @@
           }
         }
       },
-      "UserRelationFilter": {
+      "UserScalarRelationFilter": {
         "type": "object",
         "properties": {
           "is": {
@@ -3512,7 +3512,7 @@
           }
         }
       },
-      "SpaceRelationFilter": {
+      "SpaceScalarRelationFilter": {
         "type": "object",
         "properties": {
           "is": {
@@ -3874,7 +3874,7 @@
           }
         }
       },
-      "ListRelationFilter": {
+      "ListScalarRelationFilter": {
         "type": "object",
         "properties": {
           "is": {
@@ -13310,7 +13310,7 @@
           }
         }
       },
-      "SpaceArgs": {
+      "SpaceDefaultArgs": {
         "type": "object",
         "properties": {
           "select": {
@@ -13321,7 +13321,7 @@
           }
         }
       },
-      "UserArgs": {
+      "UserDefaultArgs": {
         "type": "object",
         "properties": {
           "select": {
@@ -13332,7 +13332,7 @@
           }
         }
       },
-      "ListArgs": {
+      "ListDefaultArgs": {
         "type": "object",
         "properties": {
           "select": {
@@ -13352,7 +13352,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserArgs"
+                "$ref": "#/components/schemas/UserDefaultArgs"
               }
             ]
           },
@@ -13382,7 +13382,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/SpaceCountOutputTypeArgs"
+                "$ref": "#/components/schemas/SpaceCountOutputTypeDefaultArgs"
               }
             ]
           }
@@ -13397,7 +13397,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/SpaceArgs"
+                "$ref": "#/components/schemas/SpaceDefaultArgs"
               }
             ]
           },
@@ -13407,7 +13407,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserArgs"
+                "$ref": "#/components/schemas/UserDefaultArgs"
               }
             ]
           }
@@ -13462,7 +13462,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserCountOutputTypeArgs"
+                "$ref": "#/components/schemas/UserCountOutputTypeDefaultArgs"
               }
             ]
           }
@@ -13477,7 +13477,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/SpaceArgs"
+                "$ref": "#/components/schemas/SpaceDefaultArgs"
               }
             ]
           },
@@ -13487,7 +13487,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserArgs"
+                "$ref": "#/components/schemas/UserDefaultArgs"
               }
             ]
           },
@@ -13507,7 +13507,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/ListCountOutputTypeArgs"
+                "$ref": "#/components/schemas/ListCountOutputTypeDefaultArgs"
               }
             ]
           }
@@ -13522,7 +13522,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserArgs"
+                "$ref": "#/components/schemas/UserDefaultArgs"
               }
             ]
           },
@@ -13532,7 +13532,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/ListArgs"
+                "$ref": "#/components/schemas/ListDefaultArgs"
               }
             ]
           }
@@ -13574,7 +13574,7 @@
           }
         }
       },
-      "SpaceCountOutputTypeArgs": {
+      "SpaceCountOutputTypeDefaultArgs": {
         "type": "object",
         "properties": {
           "select": {
@@ -13582,7 +13582,7 @@
           }
         }
       },
-      "UserCountOutputTypeArgs": {
+      "UserCountOutputTypeDefaultArgs": {
         "type": "object",
         "properties": {
           "select": {
@@ -13590,7 +13590,7 @@
           }
         }
       },
-      "ListCountOutputTypeArgs": {
+      "ListCountOutputTypeDefaultArgs": {
         "type": "object",
         "properties": {
           "select": {
@@ -13622,7 +13622,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserArgs"
+                "$ref": "#/components/schemas/UserDefaultArgs"
               }
             ]
           },
@@ -13655,7 +13655,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/SpaceCountOutputTypeArgs"
+                "$ref": "#/components/schemas/SpaceCountOutputTypeDefaultArgs"
               }
             ]
           }
@@ -13679,7 +13679,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/SpaceArgs"
+                "$ref": "#/components/schemas/SpaceDefaultArgs"
               }
             ]
           },
@@ -13692,7 +13692,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserArgs"
+                "$ref": "#/components/schemas/UserDefaultArgs"
               }
             ]
           },
@@ -13771,7 +13771,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserCountOutputTypeArgs"
+                "$ref": "#/components/schemas/UserCountOutputTypeDefaultArgs"
               }
             ]
           }
@@ -13795,7 +13795,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/SpaceArgs"
+                "$ref": "#/components/schemas/SpaceDefaultArgs"
               }
             ]
           },
@@ -13808,7 +13808,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserArgs"
+                "$ref": "#/components/schemas/UserDefaultArgs"
               }
             ]
           },
@@ -13837,7 +13837,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/ListCountOutputTypeArgs"
+                "$ref": "#/components/schemas/ListCountOutputTypeDefaultArgs"
               }
             ]
           }
@@ -13861,7 +13861,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/UserArgs"
+                "$ref": "#/components/schemas/UserDefaultArgs"
               }
             ]
           },
@@ -13874,7 +13874,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/ListArgs"
+                "$ref": "#/components/schemas/ListDefaultArgs"
               }
             ]
           },
@@ -16293,18 +16293,13 @@
       },
       "_Meta": {
         "type": "object",
+        "description": "Meta information about the request or response",
         "properties": {
-          "meta": {
-            "type": "object",
-            "description": "Meta information about the request or response",
-            "properties": {
-              "serialization": {
-                "description": "Serialization metadata"
-              }
-            },
-            "additionalProperties": true
+          "serialization": {
+            "description": "Serialization metadata"
           }
-        }
+        },
+        "additionalProperties": true
       },
       "_Error": {
         "type": "object",
