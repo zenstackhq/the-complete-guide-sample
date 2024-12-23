@@ -5,15 +5,15 @@
         "generate": "zenstack generate"
     },
     "dependencies": {
-        "@prisma/client": "^5.16.2",
+        "@prisma/client": "^6.1.0",
         "@types/node": "20.10.1",
-        "@zenstackhq/runtime": "^2.3.0"
+        "@zenstackhq/runtime": "^2.10.2"
     },
     "devDependencies": {
-        "prisma": "^5.16.2",
+        "prisma": "^6.1.0",
         "ts-node": "10.9.1",
         "typescript": "5.3.2",
-        "zenstack": "^2.3.0"
+        "zenstack": "^2.10.2"
     },
     "prisma": {
         "seed": "ts-node prisma/seed.ts"

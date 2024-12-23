@@ -48,8 +48,14 @@ model SpaceUser {
   // require login
   @@deny('all', auth() == null)
 
-  // space owner and admins have full access
-  @@allow('all', space.owner == auth() || space.members?[user == auth() && role == 'ADMIN'])
+  // space owner can add any one
+  @@allow('create', space.owner == auth())
+    
+  // space admin can add anyone but not himself
+  @@allow('create', auth() != user && space.members?[user == auth() && role == 'ADMIN'])
+
+  // space admin can create/update/delete
+  @@allow('update,delete', space.members?[user == auth() && role == 'ADMIN'])
 
   // user can read members of spaces that he's a member of
   @@allow('read', space.members?[user == auth()])
